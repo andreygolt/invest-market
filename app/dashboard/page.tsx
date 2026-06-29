@@ -3,7 +3,6 @@ import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { SignOutButton } from '@/components/sign-out-button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { ProjectDashboardClient } from '@/app/(project)/dashboard/project-dashboard-client';
@@ -141,137 +140,146 @@ async function getProjectDashboard(supabase: Awaited<ReturnType<typeof createCli
 
 function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) {
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Кабинет инвестора</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Сводка по портфелю, заявкам и доступным сделкам
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button asChild size="sm">
-            <Link href="/catalog">Смотреть каталог</Link>
-          </Button>
-          <Button asChild size="sm" variant="outline">
-            <Link href="/portfolio">Мой портфель</Link>
-          </Button>
-          <Button asChild size="sm" variant="outline">
-            <Link href="/applications">Мои заявки</Link>
-          </Button>
-          <Button asChild size="sm" variant="outline">
-            <Link href="/favorites">Избранное</Link>
-          </Button>
-          <SignOutButton />
-        </div>
-      </div>
-
-      <section className="mb-8">
-        <h2 className="mb-3 text-xl font-semibold">Мой портфель</h2>
-        {dashboard.portfolio.total_invested === 0 ? (
-          <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-            Портфель пуст
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-5xl space-y-8 px-4 py-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-white">Кабинет инвестора</h1>
+            <p className="mt-1 text-sm text-slate-500">
+              Сводка по портфелю, заявкам и доступным сделкам
+            </p>
           </div>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Сумма вложений</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
+          <div className="flex flex-wrap gap-2">
+            <Button asChild size="sm" className="bg-white text-black hover:bg-slate-200">
+              <Link href="/catalog">Смотреть каталог</Link>
+            </Button>
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            >
+              <Link href="/portfolio">Мой портфель</Link>
+            </Button>
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            >
+              <Link href="/applications">Мои заявки</Link>
+            </Button>
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            >
+              <Link href="/favorites">Избранное</Link>
+            </Button>
+            <SignOutButton />
+          </div>
+        </div>
+
+        <section>
+          <h2 className="mb-3 text-xl font-semibold text-white">Мой портфель</h2>
+          {dashboard.portfolio.total_invested === 0 ? (
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+              Портфель пуст
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">Сумма вложений</div>
+                <div className="text-2xl font-bold text-white">
                   {formatRub(dashboard.portfolio.total_invested)}
                 </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Активные позиции</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{dashboard.portfolio.active_count}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Завершённые выходы</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{dashboard.portfolio.exited_count}</div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </section>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">Активные позиции</div>
+                <div className="text-2xl font-bold text-white">
+                  {dashboard.portfolio.active_count}
+                </div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">Завершённые выходы</div>
+                <div className="text-2xl font-bold text-white">
+                  {dashboard.portfolio.exited_count}
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
 
-      <section className="mb-8">
-        <h2 className="mb-3 text-xl font-semibold">Заявки</h2>
-        {dashboard.applications.total === 0 ? (
-          <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-            Заявок нет
-          </div>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Всего</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{dashboard.applications.total}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">На рассмотрении</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{dashboard.applications.pending}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Одобрено</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{dashboard.applications.approved}</div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </section>
+        <section>
+          <h2 className="mb-3 text-xl font-semibold text-white">Заявки</h2>
+          {dashboard.applications.total === 0 ? (
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+              Заявок нет
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">Всего</div>
+                <div className="text-2xl font-bold text-white">{dashboard.applications.total}</div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">На рассмотрении</div>
+                <div className="text-2xl font-bold text-white">
+                  {dashboard.applications.pending}
+                </div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="mb-1 text-xs text-slate-500">Одобрено</div>
+                <div className="text-2xl font-bold text-white">
+                  {dashboard.applications.approved}
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
 
-      <section className="mb-8">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Последние сделки</h2>
-          <span className="text-sm text-muted-foreground">
-            Избранное: {dashboard.favorites_count}
-          </span>
-        </div>
-        {dashboard.recent_deals.length === 0 ? (
-          <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-            Пока нет доступных сделок
+        <section>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-white">Последние сделки</h2>
+            <span className="text-sm text-slate-500">
+              Избранное: {dashboard.favorites_count}
+            </span>
           </div>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            {dashboard.recent_deals.map((deal) => (
-              <Card key={deal.id}>
-                <CardHeader>
-                  <CardTitle className="text-base">{deal.name}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{deal.industry ?? 'Без отрасли'}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="mb-4 text-sm text-muted-foreground">
+          {dashboard.recent_deals.length === 0 ? (
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+              Пока нет доступных сделок
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {dashboard.recent_deals.map((deal) => (
+                <div
+                  key={deal.id}
+                  className="space-y-3 rounded-xl border border-slate-800 bg-slate-900 p-5"
+                >
+                  <div>
+                    <div className="font-semibold text-white">{deal.name}</div>
+                    <div className="mt-0.5 text-sm text-slate-500">
+                      {deal.industry ?? 'Без отрасли'}
+                    </div>
+                  </div>
+                  <div className="text-sm text-slate-500">
                     {deal.investment_stage ?? 'Стадия не указана'}
-                  </p>
-                  <Button asChild size="sm" variant="outline">
+                  </div>
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="border-slate-700 text-slate-300 hover:bg-slate-800"
+                  >
                     <Link href={`/deals/${deal.id}`}>Открыть deal room</Link>
                   </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
-      </section>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   );
 }

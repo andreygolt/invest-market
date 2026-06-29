@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { PortfolioDetail, PortfolioStats, PortfolioDealStatus } from '@/types';
 
@@ -23,10 +21,10 @@ const STATUS_LABELS: Record<PortfolioDealStatus, string> = {
   written_off: 'Списана',
 };
 
-const STATUS_VARIANTS: Record<PortfolioDealStatus, 'default' | 'secondary' | 'destructive' | 'outline'> = {
-  active: 'default',
-  exited: 'secondary',
-  written_off: 'destructive',
+const STATUS_CLASSES: Record<PortfolioDealStatus, string> = {
+  active: 'rounded-md bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-xs text-emerald-400',
+  exited: 'rounded-md bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-xs text-blue-400',
+  written_off: 'rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-xs text-red-400',
 };
 
 function fmt(n: number): string {
@@ -105,125 +103,121 @@ export function PortfolioClient() {
   }
 
   if (loading) {
-    return <div className="p-8 text-center text-muted-foreground">Загрузка портфеля...</div>;
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <p className="text-slate-500">Загрузка портфеля...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-8 text-center text-red-600">{error}</div>;
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <p className="text-red-400">{error}</p>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Мой портфель</h1>
-        <Button asChild>
-          <Link href="/portfolio/add">+ Добавить инвестицию</Link>
-        </Button>
-      </div>
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-4xl px-4 py-8 space-y-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-white">Мой портфель</h1>
+          <Button asChild className="bg-white text-black hover:bg-slate-200">
+            <Link href="/portfolio/add">+ Добавить инвестицию</Link>
+          </Button>
+        </div>
 
-      {/* Дисклеймер */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
-        <strong>Дисклеймер:</strong> Данный раздел предназначен для учёта фактов инвестирования,
-        совершённых вне платформы. Платформа не является организатором сделок, не принимает
-        денежные средства и не несёт ответственности за инвестиционные решения. Прошлые результаты
-        не гарантируют будущих. Инвестирование в стартапы сопряжено с риском полной потери вложений.
-      </div>
+        {/* Дисклеймер */}
+        <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-400">
+          <strong className="font-semibold">Дисклеймер:</strong> Данный раздел предназначен для учёта фактов инвестирования,
+          совершённых вне платформы. Платформа не является организатором сделок, не принимает
+          денежные средства и не несёт ответственности за инвестиционные решения. Прошлые результаты
+          не гарантируют будущих. Инвестирование в стартапы сопряжено с риском полной потери вложений.
+        </div>
 
-      {/* Статистика */}
-      {stats && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{fmt(stats.total_invested)} ₽</div>
-              <div className="text-xs text-muted-foreground mt-1">Всего инвестировано</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{stats.total_entries}</div>
-              <div className="text-xs text-muted-foreground mt-1">Позиций в портфеле</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{stats.total_active}</div>
-              <div className="text-xs text-muted-foreground mt-1">
+        {/* Статистика */}
+        {stats && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+              <div className="text-2xl font-bold text-white">{fmt(stats.total_invested)} ₽</div>
+              <div className="text-xs text-slate-500 mt-1">Всего инвестировано</div>
+            </div>
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+              <div className="text-2xl font-bold text-white">{stats.total_entries}</div>
+              <div className="text-xs text-slate-500 mt-1">Позиций в портфеле</div>
+            </div>
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+              <div className="text-2xl font-bold text-white">{stats.total_active}</div>
+              <div className="text-xs text-slate-500 mt-1">
                 Активных · {stats.total_exited} выходов · {stats.total_written_off} списано
               </div>
-            </CardContent>
-          </Card>
-          {stats.total_exit_amount > 0 && (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="text-2xl font-bold">{fmt(stats.total_exit_amount)} ₽</div>
-                <div className="text-xs text-muted-foreground mt-1">Получено при выходах</div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      )}
+            </div>
+            {stats.total_exit_amount > 0 && (
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+                <div className="text-2xl font-bold text-white">{fmt(stats.total_exit_amount)} ₽</div>
+                <div className="text-xs text-slate-500 mt-1">Получено при выходах</div>
+              </div>
+            )}
+          </div>
+        )}
 
-      {/* Список позиций */}
-      {portfolio.length === 0 ? (
-        <Card>
-          <CardContent className="pt-6 text-center text-muted-foreground py-12">
-            <p>В портфеле пока нет записей.</p>
-            <p className="text-sm mt-2">
+        {/* Список позиций */}
+        {portfolio.length === 0 ? (
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-12 text-center">
+            <p className="text-slate-400">В портфеле пока нет записей.</p>
+            <p className="text-slate-600 text-sm mt-2">
               Зафиксируйте инвестицию со страницы проекта или нажмите «Добавить инвестицию».
             </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          {portfolio.map((entry) => (
-            <Card key={entry.id}>
-              <CardHeader>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {portfolio.map((entry) => (
+              <div key={entry.id} className="rounded-xl border border-slate-800 bg-slate-900 p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <CardTitle className="text-base">
-                      <Link
-                        href={`/deals/${entry.project_id}`}
-                        className="hover:underline"
-                      >
-                        {entry.project_name}
-                      </Link>
-                    </CardTitle>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      <Badge variant={STATUS_VARIANTS[entry.deal_status]}>
+                    <Link
+                      href={`/deals/${entry.project_id}`}
+                      className="text-base font-semibold text-white hover:text-slate-300"
+                    >
+                      {entry.project_name}
+                    </Link>
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      <span className={STATUS_CLASSES[entry.deal_status]}>
                         {STATUS_LABELS[entry.deal_status]}
-                      </Badge>
+                      </span>
                       {entry.project_industry && (
-                        <Badge variant="outline">{entry.project_industry}</Badge>
+                        <span className="rounded-md bg-slate-800 px-2 py-0.5 text-xs text-slate-400">
+                          {entry.project_industry}
+                        </span>
                       )}
                       {entry.project_stage && (
-                        <Badge variant="outline">{entry.project_stage}</Badge>
+                        <span className="rounded-md bg-slate-800 px-2 py-0.5 text-xs text-slate-400">
+                          {entry.project_stage}
+                        </span>
                       )}
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="font-bold">{fmt(entry.amount_invested)} ₽</div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="font-bold text-white">{fmt(entry.amount_invested)} ₽</div>
+                    <div className="text-xs text-slate-500 mt-0.5">
                       {INSTRUMENT_LABELS[entry.instrument] ?? entry.instrument}
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      {formatDate(entry.date_invested)}
-                    </div>
+                    <div className="text-xs text-slate-600">{formatDate(entry.date_invested)}</div>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
                 {entry.exit_amount !== null && entry.deal_status === 'exited' && (
-                  <div className="text-sm">
-                    <span className="text-muted-foreground">Получено при выходе: </span>
-                    <span className="font-medium">{fmt(entry.exit_amount)} ₽</span>
+                  <div className="mt-3 text-sm text-slate-300">
+                    <span className="text-slate-500">Получено при выходе: </span>
+                    <span className="font-medium text-white">{fmt(entry.exit_amount)} ₽</span>
                   </div>
                 )}
                 {entry.notes && (
-                  <p className="text-sm text-muted-foreground">{entry.notes}</p>
+                  <p className="mt-3 text-sm text-slate-500">{entry.notes}</p>
                 )}
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="mt-3 flex items-center gap-2 flex-wrap">
                   <select
-                    className="text-sm border rounded px-2 py-1 bg-background"
+                    className="text-sm border border-slate-700 rounded px-2 py-1 bg-slate-800 text-slate-300"
                     value={entry.deal_status}
                     disabled={updatingId === entry.id}
                     onChange={(e) =>
@@ -235,19 +229,20 @@ export function PortfolioClient() {
                     <option value="written_off">Списана</option>
                   </select>
                   <Button
-                    variant="destructive"
+                    variant="ghost"
                     size="sm"
+                    className="text-red-400 hover:text-red-300"
                     disabled={deletingId === entry.id}
                     onClick={() => void handleDelete(entry.id)}
                   >
                     {deletingId === entry.id ? 'Удаление...' : 'Удалить'}
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

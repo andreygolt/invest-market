@@ -84,19 +84,21 @@ export function ApplyForm({ projectId, projectName, investmentAsk, minAmount, ma
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Проект: <span className="font-medium text-foreground">{projectName}</span>
+        <p className="mb-4 text-sm text-slate-400">
+          Проект: <span className="font-medium text-white">{projectName}</span>
           {investmentAsk && (
             <>
               {' '}
-              · Запрашивает: <span className="font-medium text-foreground">{investmentAsk}</span>
+              · Запрашивает: <span className="font-medium text-white">{investmentAsk}</span>
             </>
           )}
         </p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="amount">Сумма инвестиции (опционально, в рублях)</Label>
+        <Label htmlFor="amount" className="text-sm text-slate-400">
+          Сумма инвестиции (опционально, в рублях)
+        </Label>
         <Input
           id="amount"
           type="number"
@@ -107,14 +109,17 @@ export function ApplyForm({ projectId, projectName, investmentAsk, minAmount, ma
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           disabled={loading}
+          className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
         />
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-slate-600">
           Укажите, если хотите обозначить ориентировочную сумму.
         </p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message">Сообщение проекту *</Label>
+        <Label htmlFor="message" className="text-sm text-slate-400">
+          Сообщение проекту *
+        </Label>
         <Textarea
           id="message"
           placeholder="Расскажите о себе, своём опыте и интересе к проекту..."
@@ -123,26 +128,38 @@ export function ApplyForm({ projectId, projectName, investmentAsk, minAmount, ma
           onChange={(e) => setMessage(e.target.value)}
           disabled={loading}
           required
+          className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
         />
       </div>
 
       {error && (
-        <div className="rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-400">
           {error}
         </div>
       )}
 
-      <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
-        <strong>Важно:</strong> Заявка носит ознакомительный характер. Платформа не является
-        посредником в сделке. Сделки заключаются напрямую между инвестором и проектом вне платформы.
-        Доходность не гарантируется. Инвестирование сопряжено с риском потери вложенных средств.
+      <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-400">
+        <strong className="font-semibold">Важно:</strong> Заявка носит ознакомительный характер.
+        Платформа не является посредником в сделке. Сделки заключаются напрямую между инвестором и
+        проектом вне платформы. Доходность не гарантируется. Инвестирование сопряжено с риском
+        потери вложенных средств.
       </div>
 
-      <div className="flex gap-3">
-        <Button type="submit" disabled={loading || !message.trim()}>
+      <div className="flex gap-3 pt-2">
+        <Button
+          type="submit"
+          disabled={loading || !message.trim()}
+          className="bg-white text-black hover:bg-slate-200"
+        >
           {loading ? 'Отправка...' : 'Отправить заявку'}
         </Button>
-        <Button type="button" variant="ghost" onClick={() => router.back()} disabled={loading}>
+        <Button
+          type="button"
+          variant="ghost"
+          className="text-slate-400 hover:text-white"
+          onClick={() => router.back()}
+          disabled={loading}
+        >
           Отмена
         </Button>
       </div>

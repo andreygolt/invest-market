@@ -117,11 +117,16 @@ export function FavoritePanel({ projectId }: FavoritePanelProps) {
   const isFavorite = favorite !== null;
 
   return (
-    <div className="rounded-lg border bg-muted/30 p-4 space-y-3">
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 space-y-3">
       <div className="flex items-center gap-3">
         <Button
           variant={isFavorite ? 'default' : 'outline'}
           size="sm"
+          className={
+            isFavorite
+              ? 'bg-white text-black hover:bg-slate-200'
+              : 'border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800 hover:text-white'
+          }
           onClick={toggleFavorite}
           disabled={saving}
         >
@@ -129,7 +134,12 @@ export function FavoritePanel({ projectId }: FavoritePanelProps) {
         </Button>
 
         {isFavorite && (
-          <Button variant="ghost" size="sm" onClick={() => setNotesOpen((v) => !v)}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-slate-400 hover:bg-slate-800 hover:text-white"
+            onClick={() => setNotesOpen((v) => !v)}
+          >
             {notesOpen ? 'Скрыть заметку' : 'Заметка'}
           </Button>
         )}
@@ -142,6 +152,11 @@ export function FavoritePanel({ projectId }: FavoritePanelProps) {
               key={s}
               variant={favorite.personal_status === s ? 'default' : 'outline'}
               size="sm"
+              className={
+                favorite.personal_status === s
+                  ? 'bg-white text-black hover:bg-slate-200'
+                  : 'border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800 hover:text-white'
+              }
               onClick={() => handleSetStatus(s)}
               disabled={saving}
             >
@@ -153,7 +168,7 @@ export function FavoritePanel({ projectId }: FavoritePanelProps) {
 
       {isFavorite && notesOpen && (
         <div className="space-y-2">
-          <Label htmlFor="fav-notes" className="text-sm">
+          <Label htmlFor="fav-notes" className="text-sm text-slate-400">
             Личная заметка
           </Label>
           <Textarea
@@ -163,8 +178,14 @@ export function FavoritePanel({ projectId }: FavoritePanelProps) {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             disabled={saving}
+            className="border-slate-700 bg-slate-950 text-slate-200 placeholder:text-slate-600 focus:ring-slate-600"
           />
-          <Button size="sm" onClick={handleSaveNotes} disabled={saving}>
+          <Button
+            size="sm"
+            className="bg-white text-black hover:bg-slate-200"
+            onClick={handleSaveNotes}
+            disabled={saving}
+          >
             {saving ? 'Сохраняем...' : 'Сохранить'}
           </Button>
         </div>

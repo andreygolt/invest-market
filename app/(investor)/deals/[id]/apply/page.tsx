@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { getSettings, settingAsNumber } from '@/lib/settings/get-settings';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { QS6Answers } from '@/types';
 import { ApplyForm } from './apply-form';
 
@@ -39,16 +38,13 @@ export default async function ApplyPage({ params }: PageProps) {
   const maxAmount = settingAsNumber(settings, 'max_investment_amount', 500_000_000);
 
   return (
-    <div className="container mx-auto max-w-2xl py-8">
-      <Button asChild variant="ghost" size="sm" className="mb-4">
-        <Link href={`/deals/${projectId}`}>← Назад к проекту</Link>
-      </Button>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Оставить заявку</CardTitle>
-        </CardHeader>
-        <CardContent>
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-2xl px-4 py-8">
+        <Button asChild variant="ghost" size="sm" className="mb-6 text-slate-400 hover:text-white">
+          <Link href={`/deals/${projectId}`}>← Назад к проекту</Link>
+        </Button>
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h1 className="mb-5 text-xl font-semibold text-white">Оставить заявку</h1>
           <ApplyForm
             projectId={project.id}
             projectName={project.name}
@@ -56,8 +52,8 @@ export default async function ApplyPage({ params }: PageProps) {
             minAmount={minAmount}
             maxAmount={maxAmount}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

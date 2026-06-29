@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { headers } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { CatalogResponse, InvestorCatalogItem } from '@/types';
 import { CatalogFilters } from './catalog-filters';
@@ -38,47 +37,107 @@ const INVESTMENT_TYPE_LABELS: Record<string, string> = {
   debt: 'Долг',
 };
 
+type QuestionnaireRow = {
+  answers: Record<string, unknown>;
+};
+
+type AiReportRow = {
+  report: Record<string, unknown>;
+  status: string | null;
+};
+
+type ProjectCatalogRow = {
+  id: string;
+  name: string;
+  status: string;
+  created_at?: string;
+  updated_at?: string;
+  project_questionnaire: QuestionnaireRow[] | QuestionnaireRow | null;
+  ai_reports: AiReportRow[] | AiReportRow | null;
+};
+
+function asArray<T>(value: T[] | T | null | undefined): T[] {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+function stringValue(value: unknown) {
+  return typeof value === 'string' && value.trim() ? value : null;
+}
+
+function numberValue(value: unknown) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
+function mapProjectToCatalogItem(row: ProjectCatalogRow): InvestorCatalogItem {
+  const answers = asArray(row.project_questionnaire).reduce<Record<string, unknown>>(
+    (acc, questionnaire) => ({ ...acc, ...questionnaire.answers }),
+    {}
+  );
+  const reports = asArray(row.ai_reports);
+  const report = reports.find((item) => item.status === 'done')?.report ?? reports[0]?.report ?? {};
+  const score = numberValue(report.score);
+
+  return {
+    id: row.id,
+    name: row.name,
+    created_at: row.created_at ?? '',
+    updated_at: row.updated_at ?? '',
+    industry: stringValue(answers.industry),
+    stage: stringValue(answers.investment_stage) ?? stringValue(answers.stage),
+    country: stringValue(answers.country),
+    city: stringValue(answers.city),
+    description: stringValue(answers.description),
+    short_description: stringValue(answers.short_description),
+    investment_ask:
+      stringValue(answers.investment_amount) ?? stringValue(answers.investment_ask),
+    investment_type: stringValue(answers.investment_type) as InvestorCatalogItem['investment_type'],
+    valuation_pre_money: stringValue(answers.valuation_pre_money),
+    team_size: stringValue(answers.team_size),
+    ai_score: score,
+    ai_summary: stringValue(report.summary),
+  };
+}
+
+function parsePositiveInteger(value: string | undefined, fallback: number) {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function amountNumber(value: string | null) {
+  if (!value) return 0;
+  const parsed = Number(String(value).replace(/[^\d.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 async function getCatalogData(searchParams: CatalogSearchParams) {
-  const headersList = await headers();
-  const host = headersList.get('host') ?? 'localhost:3000';
-  const protocol = headersList.get('x-forwarded-proto') ?? 'http';
-  const cookie = headersList.get('cookie') ?? '';
-
-  const params = new URLSearchParams();
-  if (searchParams.industry) params.set('industry', searchParams.industry);
-  if (searchParams.stage) params.set('stage', searchParams.stage);
-  if (searchParams.min_amount) params.set('min_amount', searchParams.min_amount);
-  if (searchParams.max_amount) params.set('max_amount', searchParams.max_amount);
-  if (searchParams.country) params.set('country', searchParams.country);
-  if (searchParams.investment_type) params.set('investment_type', searchParams.investment_type);
-  if (searchParams.sort) params.set('sort', searchParams.sort);
-  if (searchParams.q) params.set('q', searchParams.q);
-  if (searchParams.page) params.set('page', searchParams.page);
-  params.set('per_page', '12');
-
-  const res = await fetch(`${protocol}://${host}/api/investor/catalog?${params}`, {
-    cache: 'no-store',
-    headers: cookie ? { cookie } : undefined,
-  });
-
-  const catalog: CatalogResponse = res.ok
-    ? await res.json()
-    : { items: [], total: 0, page: 1, per_page: 12, total_pages: 0 };
+  const page = parsePositiveInteger(searchParams.page, 1);
+  const perPage = 12;
 
   const supabase = createAdminClient();
 
   const { data, error } = await supabase
-    .from('v_investor_catalog')
-    .select('*');
+    .from('projects')
+    .select(`
+      id, name, status, created_at, updated_at,
+      project_questionnaire!inner(answers),
+      ai_reports(report, status)
+    `)
+    .eq('status', 'approved');
 
   if (error || !data) {
     return {
-      catalog,
+      catalog: { items: [], total: 0, page, per_page: perPage, total_pages: 0 },
       filters: { industries: [], stages: [], countries: [], investmentTypes: [] },
     };
   }
 
-  const items = data as InvestorCatalogItem[];
+  const items = (data as ProjectCatalogRow[]).map(mapProjectToCatalogItem);
 
   const unique = <T,>(arr: (T | null | undefined)[]): T[] =>
     [...new Set(arr.filter((v): v is T => v !== null && v !== undefined && v !== ''))];
@@ -88,6 +147,50 @@ async function getCatalogData(searchParams: CatalogSearchParams) {
     stages: unique(items.map((i) => i.stage)),
     countries: unique(items.map((i) => i.country)),
     investmentTypes: unique(items.map((i) => i.investment_type)),
+  };
+
+  const q = searchParams.q?.trim().toLowerCase();
+  const filtered = items.filter((item) => {
+    if (searchParams.industry && item.industry !== searchParams.industry) return false;
+    if (searchParams.stage && item.stage !== searchParams.stage) return false;
+    if (searchParams.country && item.country !== searchParams.country) return false;
+    if (searchParams.investment_type && item.investment_type !== searchParams.investment_type) {
+      return false;
+    }
+    if (searchParams.min_amount && amountNumber(item.investment_ask) < Number(searchParams.min_amount)) {
+      return false;
+    }
+    if (searchParams.max_amount && amountNumber(item.investment_ask) > Number(searchParams.max_amount)) {
+      return false;
+    }
+    if (q) {
+      const searchable = [item.name, item.short_description, item.description]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      return searchable.includes(q);
+    }
+    return true;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    if (searchParams.sort === 'score_desc') {
+      return (b.ai_score ?? 0) - (a.ai_score ?? 0);
+    }
+    if (searchParams.sort === 'ask_asc') {
+      return amountNumber(a.investment_ask) - amountNumber(b.investment_ask);
+    }
+    return b.created_at.localeCompare(a.created_at);
+  });
+
+  const total = sorted.length;
+  const start = (page - 1) * perPage;
+  const catalog: CatalogResponse = {
+    items: sorted.slice(start, start + perPage),
+    total,
+    page,
+    per_page: perPage,
+    total_pages: Math.ceil(total / perPage),
   };
 
   return { catalog, filters };
@@ -109,19 +212,18 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   ].filter(Boolean);
 
   return (
-    <div className="container mx-auto py-8 max-w-7xl">
-      <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-7xl px-4 py-8">
+      <div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
         <strong>Важно:</strong> Платформа не является брокером или инвестиционным советником.
         Информация носит ознакомительный характер и не является офертой.
         Платформа не гарантирует доходность и не несёт ответственности за результаты инвестиций.
         Сделки заключаются вне платформы. Инвестирование сопряжено с риском потери вложенных средств.
       </div>
 
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Каталог проектов</h1>
-        <p className="text-muted-foreground mt-1">
-          Закрытый каталог для аккредитованных инвесторов
-        </p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white">Каталог проектов</h1>
+        <p className="text-slate-400 mt-2">Проверенные инвестиционные возможности</p>
       </div>
 
       <div className="flex gap-8">
@@ -169,11 +271,11 @@ export default async function CatalogPage({ searchParams }: PageProps) {
               name="q"
               defaultValue={resolvedSearchParams.q ?? ''}
               placeholder="Поиск по названию..."
-              className="flex-1 rounded-md border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+              className="flex-1 rounded-md border border-slate-800 bg-slate-950 px-3 py-1.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600"
             />
             <button
               type="submit"
-              className="px-4 py-1.5 rounded-md border text-sm bg-gray-900 text-white hover:bg-gray-700"
+              className="rounded-md border border-slate-700 bg-slate-900 px-4 py-1.5 text-sm text-white hover:bg-slate-800"
             >
               Найти
             </button>
@@ -192,7 +294,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
                     }).filter(([, v]) => v != null) as [string, string][]
                   )
                 )}`}
-                className="px-3 py-1.5 rounded-md border text-sm hover:bg-gray-50"
+                className="rounded-md border border-slate-800 px-3 py-1.5 text-sm text-slate-400 hover:text-white"
               >
                 Сбросить
               </a>
@@ -200,7 +302,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           </form>
 
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-slate-500">
               {activeFilters.length > 0
                 ? `${catalog.total} проектов по фильтрам: ${activeFilters.join(', ')}`
                 : `${catalog.total} проектов`}
@@ -208,18 +310,20 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           </div>
 
           {resolvedSearchParams.q && (
-            <p className="text-sm text-gray-500 mb-2">
+            <p className="text-sm text-slate-500 mb-2">
               Результаты поиска: «{resolvedSearchParams.q}» — {catalog.total} проектов
             </p>
           )}
 
           {catalog.items.length === 0 ? (
-            <div className="rounded-lg border border-dashed p-12 text-center text-muted-foreground">
-              <p className="text-lg font-medium">Проекты не найдены</p>
-              <p className="text-sm mt-1">Попробуйте изменить фильтры</p>
+            <div className="text-center py-20">
+              <p className="text-slate-500 text-lg">Проектов пока нет</p>
+              <p className="text-slate-600 text-sm mt-2">
+                Проекты появятся после прохождения модерации
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {catalog.items.map((item) => (
                 <CatalogCard key={item.id} item={item} />
               ))}
@@ -234,6 +338,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             />
           )}
         </main>
+      </div>
       </div>
     </div>
   );

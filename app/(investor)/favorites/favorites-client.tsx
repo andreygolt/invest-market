@@ -3,21 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { InvestorFavoriteDetail, InvestorPersonalStatus } from '@/types';
 
 const STATUS_LABELS: Record<InvestorPersonalStatus, string> = {
   watching: 'Слежу',
   interested: 'Интересно',
   passed: 'Пропускаю',
-};
-
-const STATUS_VARIANTS: Record<InvestorPersonalStatus, 'default' | 'secondary' | 'outline'> = {
-  watching: 'secondary',
-  interested: 'default',
-  passed: 'outline',
 };
 
 const STATUS_FILTERS: Array<{ value: InvestorPersonalStatus | 'all'; label: string }> = [
@@ -74,99 +66,101 @@ export function FavoritesClient() {
 
   if (loading) {
     return (
-      <div className="container mx-auto max-w-3xl py-8">
-        <p className="text-muted-foreground">Загрузка...</p>
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <p className="text-slate-500">Загрузка...</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto max-w-3xl space-y-4 py-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">Избранное</h1>
-        <Button asChild variant="outline">
-          <Link href="/catalog">← Каталог</Link>
-        </Button>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {STATUS_FILTERS.map((f) => (
-          <Button
-            key={f.value}
-            variant={filter === f.value ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => handleFilter(f.value)}
-          >
-            {f.label}
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-3xl px-4 py-8 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-3xl font-bold text-white">Избранное</h1>
+          <Button asChild variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+            <Link href="/catalog">← Каталог</Link>
           </Button>
-        ))}
-      </div>
+        </div>
 
-      {favorites.length === 0 ? (
-        <Card>
-          <CardContent className="py-8 text-center text-muted-foreground">
+        <div className="flex flex-wrap gap-2">
+          {STATUS_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => handleFilter(f.value)}
+              className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+                filter === f.value
+                  ? 'bg-white text-black'
+                  : 'border border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-300'
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {favorites.length === 0 ? (
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-12 text-center">
+            <p className="text-slate-500">
             {filter === 'all' ? (
               <>
                 Избранных проектов нет.{' '}
-                <Link href="/catalog" className="text-blue-600 hover:underline">
+                <Link href="/catalog" className="text-blue-400 hover:text-blue-300">
                   Перейти в каталог
                 </Link>
               </>
             ) : (
               <>Нет проектов с таким статусом.</>
             )}
-          </CardContent>
-        </Card>
-      ) : (
-        favorites.map((fav) => (
-          <Card key={fav.id}>
-            <CardHeader className="pb-2">
+            </p>
+          </div>
+        ) : (
+          favorites.map((fav) => (
+            <div key={fav.id} className="rounded-xl border border-slate-800 bg-slate-900 p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <CardTitle className="text-base">
-                    <Link href={`/deals/${fav.project_id}`} className="hover:underline">
-                      {fav.project_name}
-                    </Link>
-                  </CardTitle>
+                  <Link
+                    href={`/deals/${fav.project_id}`}
+                    className="text-base font-semibold text-white hover:text-slate-300"
+                  >
+                    {fav.project_name}
+                  </Link>
                   <div className="mt-1 flex flex-wrap gap-2">
                     {fav.project_industry && (
-                      <span className="text-xs text-muted-foreground">{fav.project_industry}</span>
+                      <span className="text-xs text-slate-500">{fav.project_industry}</span>
                     )}
                     {fav.project_stage && (
-                      <span className="text-xs text-muted-foreground">{fav.project_stage}</span>
+                      <span className="text-xs text-slate-600">{fav.project_stage}</span>
                     )}
                     {fav.project_ai_score !== null && (
-                      <span className="text-xs text-muted-foreground">
-                        AI-score: {fav.project_ai_score}
+                      <span className={`text-xs ${fav.project_ai_score >= 80 ? 'text-emerald-400' : 'text-yellow-400'}`}>
+                        AI {fav.project_ai_score}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                   {fav.personal_status && (
-                    <Badge variant={STATUS_VARIANTS[fav.personal_status]}>
+                    <span className="rounded-md bg-slate-800 border border-slate-700 px-2 py-0.5 text-xs text-slate-400">
                       {STATUS_LABELS[fav.personal_status]}
-                    </Badge>
+                    </span>
                   )}
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-red-500 hover:text-red-600"
+                    className="text-slate-500 hover:text-red-400"
                     onClick={() => handleRemove(fav.id)}
                   >
                     Удалить
                   </Button>
                 </div>
               </div>
-            </CardHeader>
-            {fav.notes && (
-              <CardContent>
-                <p className="line-clamp-3 text-sm text-muted-foreground">{fav.notes}</p>
-              </CardContent>
-            )}
-          </Card>
-        ))
-      )}
+              {fav.notes && (
+                <p className="mt-3 text-sm text-slate-500 line-clamp-3">{fav.notes}</p>
+              )}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

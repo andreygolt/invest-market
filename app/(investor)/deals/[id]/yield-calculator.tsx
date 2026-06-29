@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { calcYield } from '@/lib/calc/yield';
@@ -23,11 +22,11 @@ function fmt(n: number): string {
 
 function ScenarioRow({ scenario }: { scenario: CalcScenario }) {
   const isPositive = scenario.profit >= 0;
-  const profitColor = isPositive ? 'text-green-600' : 'text-red-600';
+  const profitColor = isPositive ? 'text-emerald-400' : 'text-red-400';
 
   return (
-    <div className="grid grid-cols-4 gap-2 py-3 border-b last:border-0 text-sm">
-      <div className="font-medium">{scenario.label}</div>
+    <div className="grid grid-cols-4 gap-2 py-3 border-b border-slate-800 last:border-0 text-sm text-slate-300">
+      <div className="font-medium text-white">{scenario.label}</div>
       <div className="text-right">{fmt(scenario.total_return)} ₽</div>
       <div className={`text-right font-medium ${profitColor}`}>
         {isPositive ? '+' : ''}
@@ -35,7 +34,7 @@ function ScenarioRow({ scenario }: { scenario: CalcScenario }) {
       </div>
       <div className={`text-right ${profitColor}`}>
         ×{scenario.return_multiple.toFixed(2)}
-        <span className="text-xs text-muted-foreground ml-1">
+        <span className="text-xs text-slate-500 ml-1">
           ({isPositive ? '+' : ''}
           {scenario.return_pct.toFixed(0)}%)
         </span>
@@ -76,12 +75,10 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Калькулятор сценариев доходности</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-5">
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+    <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <h2 className="text-lg font-semibold text-white mb-4">Калькулятор сценариев доходности</h2>
+      <div className="space-y-5">
+        <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-400">
           <strong>Дисклеймер:</strong> Расчёт носит исключительно образовательный и иллюстративный
           характер. Не является инвестиционной рекомендацией или прогнозом. Платформа не гарантирует
           доходность и не несёт ответственности за инвестиционные решения. Прошлые результаты не
@@ -91,7 +88,9 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="calc-amount">Сумма инвестиции (₽)</Label>
+            <Label htmlFor="calc-amount" className="text-slate-400">
+              Сумма инвестиции (₽)
+            </Label>
             <Input
               id="calc-amount"
               type="text"
@@ -99,14 +98,17 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
               value={amountInput}
               onChange={(e) => handleAmountChange(e.target.value)}
               placeholder="1 000 000"
+              className="border-slate-700 bg-slate-950 text-slate-200 placeholder:text-slate-600 focus:ring-slate-600"
             />
             {investmentAsk && (
-              <p className="text-xs text-muted-foreground">Проект запрашивает: {investmentAsk}</p>
+              <p className="text-xs text-slate-500">Проект запрашивает: {investmentAsk}</p>
             )}
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="calc-horizon">Горизонт инвестирования (лет)</Label>
+            <Label htmlFor="calc-horizon" className="text-slate-400">
+              Горизонт инвестирования (лет)
+            </Label>
             <Input
               id="calc-horizon"
               type="number"
@@ -114,15 +116,16 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
               max={20}
               value={horizon}
               onChange={(e) => handleHorizonChange(e.target.value)}
+              className="border-slate-700 bg-slate-950 text-slate-200 focus:ring-slate-600"
             />
           </div>
         </div>
 
         <div>
-          <p className="text-sm font-medium mb-2">CAGR по сценариям (% в год)</p>
+          <p className="text-sm font-medium text-slate-400 mb-2">CAGR по сценариям (% в год)</p>
           <div className="grid grid-cols-3 gap-3">
             <div className="space-y-1">
-              <Label htmlFor="cagr-pess" className="text-xs text-muted-foreground">
+              <Label htmlFor="cagr-pess" className="text-xs text-slate-500">
                 Пессимистичный
               </Label>
               <Input
@@ -131,10 +134,11 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
                 value={pessimisticCagr}
                 onChange={(e) => handleCagrChange(e.target.value, setPessimisticCagr)}
                 step={5}
+                className="border-slate-700 bg-slate-950 text-slate-200 focus:ring-slate-600"
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="cagr-base" className="text-xs text-muted-foreground">
+              <Label htmlFor="cagr-base" className="text-xs text-slate-500">
                 Базовый
               </Label>
               <Input
@@ -143,10 +147,11 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
                 value={baseCagr}
                 onChange={(e) => handleCagrChange(e.target.value, setBaseCagr)}
                 step={5}
+                className="border-slate-700 bg-slate-950 text-slate-200 focus:ring-slate-600"
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="cagr-opt" className="text-xs text-muted-foreground">
+              <Label htmlFor="cagr-opt" className="text-xs text-slate-500">
                 Оптимистичный
               </Label>
               <Input
@@ -155,13 +160,14 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
                 value={optimisticCagr}
                 onChange={(e) => handleCagrChange(e.target.value, setOptimisticCagr)}
                 step={5}
+                className="border-slate-700 bg-slate-950 text-slate-200 focus:ring-slate-600"
               />
             </div>
           </div>
         </div>
 
         <div>
-          <div className="grid grid-cols-4 gap-2 text-xs font-medium text-muted-foreground pb-2 border-b">
+          <div className="grid grid-cols-4 gap-2 text-xs font-medium text-slate-500 pb-2 border-b border-slate-800">
             <div>Сценарий</div>
             <div className="text-right">Итого</div>
             <div className="text-right">Прибыль/Убыток</div>
@@ -170,11 +176,11 @@ export function YieldCalculator({ investmentAsk }: YieldCalculatorProps) {
           <ScenarioRow scenario={result.pessimistic} />
           <ScenarioRow scenario={result.base} />
           <ScenarioRow scenario={result.optimistic} />
-          <p className="text-xs text-muted-foreground pt-2">
+          <p className="text-xs text-slate-500 pt-2">
             Инвестировано: {fmt(result.amount)} ₽ · Горизонт: {result.horizon_years} лет
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }

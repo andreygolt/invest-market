@@ -2,8 +2,8 @@
 
 import { useState, Suspense } from 'react';
 import type { FormEvent } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -69,15 +69,16 @@ function AddPortfolioForm() {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-8">
-      <Card>
-        <CardHeader>
-          <CardTitle>Зафиксировать инвестицию</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-lg px-4 py-8">
+        <Button asChild variant="ghost" size="sm" className="mb-6 text-slate-400 hover:text-white">
+          <Link href="/portfolio">← Назад к портфелю</Link>
+        </Button>
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h1 className="text-xl font-semibold text-white mb-5">Зафиксировать инвестицию</h1>
           {/* Дисклеймер */}
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
-            <strong>Дисклеймер:</strong> Фиксация инвестиции носит информационный характер.
+          <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-400">
+            <strong className="font-semibold">Дисклеймер:</strong> Фиксация инвестиции носит информационный характер.
             Платформа не участвует в сделке, не принимает денежные средства и не несёт
             ответственности за инвестиционные решения. Инвестирование в стартапы сопряжено
             с риском полной потери вложений. Сделки заключаются вне платформы.
@@ -85,18 +86,19 @@ function AddPortfolioForm() {
 
           <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
             <div className="space-y-1">
-              <Label htmlFor="project-id">ID проекта</Label>
+              <Label htmlFor="project-id" className="text-sm text-slate-400">ID проекта</Label>
               <Input
                 id="project-id"
                 value={projectId}
                 onChange={(e) => setProjectId(e.target.value)}
                 placeholder="UUID проекта"
                 readOnly={!!projectIdFromQuery}
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
               />
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="amount">Сумма инвестиции (₽)</Label>
+              <Label htmlFor="amount" className="text-sm text-slate-400">Сумма инвестиции (₽)</Label>
               <Input
                 id="amount"
                 type="text"
@@ -105,25 +107,27 @@ function AddPortfolioForm() {
                 onChange={(e) => setAmountInvested(e.target.value)}
                 placeholder="1 000 000"
                 required
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
               />
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="date">Дата инвестиции</Label>
+              <Label htmlFor="date" className="text-sm text-slate-400">Дата инвестиции</Label>
               <Input
                 id="date"
                 type="date"
                 value={dateInvested}
                 onChange={(e) => setDateInvested(e.target.value)}
                 required
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
               />
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="instrument">Инструмент</Label>
+              <Label htmlFor="instrument" className="text-sm text-slate-400">Инструмент</Label>
               <select
                 id="instrument"
-                className="w-full border rounded px-3 py-2 text-sm bg-background"
+                className="w-full border border-slate-700 rounded px-3 py-2 text-sm bg-slate-800 text-slate-300"
                 value={instrument}
                 onChange={(e) => setInstrument(e.target.value as PortfolioInstrument)}
               >
@@ -136,10 +140,10 @@ function AddPortfolioForm() {
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="deal-status">Статус сделки</Label>
+              <Label htmlFor="deal-status" className="text-sm text-slate-400">Статус сделки</Label>
               <select
                 id="deal-status"
-                className="w-full border rounded px-3 py-2 text-sm bg-background"
+                className="w-full border border-slate-700 rounded px-3 py-2 text-sm bg-slate-800 text-slate-300"
                 value={dealStatus}
                 onChange={(e) => setDealStatus(e.target.value as PortfolioDealStatus)}
               >
@@ -151,7 +155,7 @@ function AddPortfolioForm() {
 
             {dealStatus === 'exited' && (
               <div className="space-y-1">
-                <Label htmlFor="exit-amount">Сумма при выходе (₽)</Label>
+                <Label htmlFor="exit-amount" className="text-sm text-slate-400">Сумма при выходе (₽)</Label>
                 <Input
                   id="exit-amount"
                   type="text"
@@ -159,46 +163,49 @@ function AddPortfolioForm() {
                   value={exitAmount}
                   onChange={(e) => setExitAmount(e.target.value)}
                   placeholder="2 000 000"
+                  className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
                 />
               </div>
             )}
 
             <div className="space-y-1">
-              <Label htmlFor="notes">Заметки (необязательно)</Label>
+              <Label htmlFor="notes" className="text-sm text-slate-400">Заметки (необязательно)</Label>
               <Input
                 id="notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Условия, контактные данные, детали сделки..."
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
               />
             </div>
 
             {error && (
-              <p className="text-sm text-red-600">{error}</p>
+              <p className="text-sm text-red-400">{error}</p>
             )}
 
             <div className="flex gap-3 pt-2">
-              <Button type="submit" disabled={submitting} className="flex-1">
-                {submitting ? 'Сохранение...' : 'Зафиксировать инвестицию'}
+              <Button type="submit" disabled={submitting} className="flex-1 bg-white text-black hover:bg-slate-200">
+                {submitting ? 'Сохранение...' : 'Зафиксировать'}
               </Button>
               <Button
                 type="button"
                 variant="outline"
+                className="border-slate-700 text-slate-300 hover:bg-slate-800"
                 onClick={() => router.push('/portfolio')}
               >
                 Отмена
               </Button>
             </div>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function AddPortfolioPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-muted-foreground">Загрузка...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center"><p className="text-slate-500">Загрузка...</p></div>}>
       <AddPortfolioForm />
     </Suspense>
   );

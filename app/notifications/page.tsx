@@ -15,9 +15,11 @@ export default async function NotificationsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-semibold">Уведомления</h1>
-      <NotificationsPageClient />
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="mx-auto max-w-2xl px-4 py-8">
+        <h1 className="mb-6 text-3xl font-bold text-white">Уведомления</h1>
+        <NotificationsPageClient />
+      </div>
     </div>
   );
 }

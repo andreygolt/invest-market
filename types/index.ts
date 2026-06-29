@@ -507,7 +507,7 @@ export interface InvestorCatalogItem {
   created_at: string;
   updated_at: string;
   industry: string | null;
-  stage: ProjectStage | null;
+  stage: string | null;
   country: string | null;
   city: string | null;
   description: string | null;
@@ -515,6 +515,7 @@ export interface InvestorCatalogItem {
   investment_ask: string | null;
   investment_type: QS6Answers['investment_type'] | null;
   valuation_pre_money: string | null;
+  team_size?: string | null;
   ai_score: number | null;
   ai_summary: string | null;
 }
