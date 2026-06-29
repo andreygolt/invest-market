@@ -214,14 +214,8 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       <div className="container mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
-        <strong>Важно:</strong> Платформа не является брокером или инвестиционным советником.
-        Информация носит ознакомительный характер и не является офертой.
-        Платформа не гарантирует доходность и не несёт ответственности за результаты инвестиций.
-        Сделки заключаются вне платформы. Инвестирование сопряжено с риском потери вложенных средств.
-      </div>
 
-      <div className="mb-8">
+<div className="mb-8">
         <h1 className="text-3xl font-bold text-white">Каталог проектов</h1>
         <p className="text-slate-400 mt-2">Проверенные инвестиционные возможности</p>
       </div>
