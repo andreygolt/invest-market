@@ -79,11 +79,25 @@ export function CatalogCard({ item }: CatalogCardProps) {
       </div>
 
       <div className="mt-5 border-t border-slate-800 pt-5">
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-300">
-          {amount && <span>💰 {amount}</span>}
-          {stage && <span>📈 {stage}</span>}
-          {item.team_size && <span>👥 {item.team_size}</span>}
-          {!amount && investmentType && <span>{investmentType}</span>}
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-400">
+          {amount && (
+            <span className="flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              {amount}
+            </span>
+          )}
+          {stage && (
+            <span className="flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              {stage}
+            </span>
+          )}
+          {item.team_size && (
+            <span className="flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {item.team_size}
+            </span>
+          )}
         </div>
       </div>
 
