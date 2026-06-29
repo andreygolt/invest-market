@@ -58,6 +58,23 @@ export async function GET(_request: NextRequest, context: RouteContext) {
   return NextResponse.json(data as UserProfile);
 }
 
+export async function POST(_request: NextRequest, context: RouteContext) {
+  const auth = await requireUsersAdmin();
+  if (auth.error) return auth.error;
+
+  const { id } = await context.params;
+  const supabase = createAdminClient();
+  const { error } = await supabase.auth.admin.updateUserById(id, {
+    email_confirm: true,
+  });
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true });
+}
+
 export async function PATCH(request: NextRequest, context: RouteContext) {
   const auth = await requireUsersAdmin();
   if (auth.error) return auth.error;

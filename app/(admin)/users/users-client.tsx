@@ -22,6 +22,8 @@ import {
 } from '@/components/ui/table';
 import type { UserProfile, UserProfileUpdate, UserRole } from '@/types';
 
+type UserWithConfirmed = UserProfile & { email_confirmed?: boolean };
+
 export type UsersResponse = {
   users: UserProfile[];
   total: number;
@@ -127,6 +129,16 @@ export function UsersClient({ initialUsers, currentUserId }: UsersClientProps) {
       })),
     [currentUserId, draftRoles, users]
   );
+
+  async function confirmEmail(userId: string) {
+    setSavingId(userId);
+    try {
+      await fetch(`/api/admin/users/${userId}`, { method: 'POST' });
+      await loadUsers(page);
+    } finally {
+      setSavingId(null);
+    }
+  }
 
   async function updateUser(userId: string, payload: UserProfileUpdate) {
     setSavingId(userId);
@@ -249,6 +261,15 @@ export function UsersClient({ initialUsers, currentUserId }: UsersClientProps) {
                         onClick={() => void updateUser(user.id, { is_active: !user.is_active })}
                       >
                         {user.is_active ? 'Деактивировать' : 'Активировать'}
+                      </Button>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        disabled={savingId === user.id}
+                        onClick={() => void confirmEmail(user.id)}
+                      >
+                        Подтвердить email
                       </Button>
                     </div>
                   </TableCell>
