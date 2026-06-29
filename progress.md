@@ -1,3 +1,7 @@
+REVIEWED: T120
+- создан __tests__/t120.test.ts: 29 тестов для GET/POST /api/manager/applications/[id]/notes, DELETE /api/manager/applications/[id]/notes/[note_id], GET /api/manager/export/applications, escapeCSV
+
+REVIEWED: T119
 REVIEWED: T118
 - создан __tests__/t118.test.ts: 19 тестов для GET /api/investor/favorites, POST /api/investor/favorites, PATCH /api/investor/favorites/[id], DELETE /api/investor/favorites/[id]
 

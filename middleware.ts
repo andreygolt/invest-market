@@ -7,6 +7,7 @@ export async function middleware(request: NextRequest) {
     pathname === '/' ||
     pathname === '/login' ||
     pathname === '/pending' ||
+    pathname === '/parml-lab' ||
     pathname.startsWith('/apply') ||
     pathname.startsWith('/invite/') ||
     pathname.startsWith('/api/apply') ||
