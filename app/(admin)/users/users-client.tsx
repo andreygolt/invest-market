@@ -222,55 +222,59 @@ export function UsersClient({ initialUsers, currentUserId }: UsersClientProps) {
                   </TableCell>
                   <TableCell>{formatDate(user.created_at)}</TableCell>
                   <TableCell>
-                    <div className="flex flex-wrap gap-2">
-                      <Select
-                        value={user.draftRole}
-                        onValueChange={(value) => {
-                          if (user.isSelf || savingId === user.id) return;
-                          setDraftRoles((current) => ({
-                            ...current,
-                            [user.id]: value as UserRole,
-                          }));
-                        }}
-                      >
-                        <SelectTrigger className="w-[150px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {USER_ROLES.map((role) => (
-                            <SelectItem key={role} value={role}>
-                              {role}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant="outline"
-                        disabled={user.isSelf || savingId === user.id || user.draftRole === user.role}
-                        onClick={() => void updateUser(user.id, { role: user.draftRole })}
-                      >
-                        Сохранить
-                      </Button>
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant={user.is_active ? 'destructive' : 'outline'}
-                        disabled={user.isSelf || savingId === user.id}
-                        onClick={() => void updateUser(user.id, { is_active: !user.is_active })}
-                      >
-                        {user.is_active ? 'Деактивировать' : 'Активировать'}
-                      </Button>
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant="outline"
-                        disabled={savingId === user.id}
-                        onClick={() => void confirmEmail(user.id)}
-                      >
-                        Подтвердить email
-                      </Button>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex gap-2">
+                        <Select
+                          value={user.draftRole}
+                          onValueChange={(value) => {
+                            if (user.isSelf || savingId === user.id) return;
+                            setDraftRoles((current) => ({
+                              ...current,
+                              [user.id]: value as UserRole,
+                            }));
+                          }}
+                        >
+                          <SelectTrigger className="w-[130px]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {USER_ROLES.map((role) => (
+                              <SelectItem key={role} value={role}>
+                                {role}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          disabled={user.isSelf || savingId === user.id || user.draftRole === user.role}
+                          onClick={() => void updateUser(user.id, { role: user.draftRole })}
+                        >
+                          Сохранить
+                        </Button>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant={user.is_active ? 'destructive' : 'outline'}
+                          disabled={user.isSelf || savingId === user.id}
+                          onClick={() => void updateUser(user.id, { is_active: !user.is_active })}
+                        >
+                          {user.is_active ? 'Деактивировать' : 'Активировать'}
+                        </Button>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          disabled={savingId === user.id}
+                          onClick={() => void confirmEmail(user.id)}
+                        >
+                          Подтвердить email
+                        </Button>
+                      </div>
                     </div>
                   </TableCell>
                 </TableRow>
