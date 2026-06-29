@@ -140,24 +140,24 @@ async function getProjectDashboard(supabase: Awaited<ReturnType<typeof createCli
 
 function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) {
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-slate-50">
       <div className="container mx-auto max-w-5xl space-y-8 px-4 py-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white">Кабинет инвестора</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Кабинет инвестора</h1>
             <p className="mt-1 text-sm text-slate-500">
               Сводка по портфелю, заявкам и доступным сделкам
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button asChild size="sm" className="bg-white text-black hover:bg-slate-200">
+            <Button asChild size="sm" className="bg-slate-900 text-white hover:bg-slate-800">
               <Link href="/catalog">Смотреть каталог</Link>
             </Button>
             <Button
               asChild
               size="sm"
               variant="outline"
-              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              className="border-slate-300 text-slate-700 hover:bg-slate-100"
             >
               <Link href="/portfolio">Мой портфель</Link>
             </Button>
@@ -165,7 +165,7 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
               asChild
               size="sm"
               variant="outline"
-              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              className="border-slate-300 text-slate-700 hover:bg-slate-100"
             >
               <Link href="/applications">Мои заявки</Link>
             </Button>
@@ -173,7 +173,7 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
               asChild
               size="sm"
               variant="outline"
-              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              className="border-slate-300 text-slate-700 hover:bg-slate-100"
             >
               <Link href="/favorites">Избранное</Link>
             </Button>
@@ -182,28 +182,28 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
         </div>
 
         <section>
-          <h2 className="mb-3 text-xl font-semibold text-white">Мой портфель</h2>
+          <h2 className="mb-3 text-xl font-semibold text-slate-900">Мой портфель</h2>
           {dashboard.portfolio.total_invested === 0 ? (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
               Портфель пуст
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">Сумма вложений</div>
-                <div className="text-2xl font-bold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">Сумма вложений</div>
+                <div className="text-2xl font-bold text-slate-900">
                   {formatRub(dashboard.portfolio.total_invested)}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">Активные позиции</div>
-                <div className="text-2xl font-bold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">Активные позиции</div>
+                <div className="text-2xl font-bold text-slate-900">
                   {dashboard.portfolio.active_count}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">Завершённые выходы</div>
-                <div className="text-2xl font-bold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">Завершённые выходы</div>
+                <div className="text-2xl font-bold text-slate-900">
                   {dashboard.portfolio.exited_count}
                 </div>
               </div>
@@ -212,26 +212,26 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
         </section>
 
         <section>
-          <h2 className="mb-3 text-xl font-semibold text-white">Заявки</h2>
+          <h2 className="mb-3 text-xl font-semibold text-slate-900">Заявки</h2>
           {dashboard.applications.total === 0 ? (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
               Заявок нет
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">Всего</div>
-                <div className="text-2xl font-bold text-white">{dashboard.applications.total}</div>
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">Всего</div>
+                <div className="text-2xl font-bold text-slate-900">{dashboard.applications.total}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">На рассмотрении</div>
-                <div className="text-2xl font-bold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">На рассмотрении</div>
+                <div className="text-2xl font-bold text-slate-900">
                   {dashboard.applications.pending}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="mb-1 text-xs text-slate-500">Одобрено</div>
-                <div className="text-2xl font-bold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="mb-1 text-sm text-slate-500">Одобрено</div>
+                <div className="text-2xl font-bold text-slate-900">
                   {dashboard.applications.approved}
                 </div>
               </div>
@@ -241,13 +241,13 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
 
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">Последние сделки</h2>
+            <h2 className="text-xl font-semibold text-slate-900">Последние сделки</h2>
             <span className="text-sm text-slate-500">
               Избранное: {dashboard.favorites_count}
             </span>
           </div>
           {dashboard.recent_deals.length === 0 ? (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-slate-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
               Пока нет доступных сделок
             </div>
           ) : (
@@ -255,10 +255,10 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
               {dashboard.recent_deals.map((deal) => (
                 <div
                   key={deal.id}
-                  className="space-y-3 rounded-xl border border-slate-800 bg-slate-900 p-5"
+                  className="space-y-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
                 >
                   <div>
-                    <div className="font-semibold text-white">{deal.name}</div>
+                    <div className="font-semibold text-slate-900">{deal.name}</div>
                     <div className="mt-0.5 text-sm text-slate-500">
                       {deal.industry ?? 'Без отрасли'}
                     </div>
@@ -270,7 +270,7 @@ function InvestorDashboardView({ dashboard }: { dashboard: InvestorDashboard }) 
                     asChild
                     size="sm"
                     variant="outline"
-                    className="border-slate-700 text-slate-300 hover:bg-slate-800"
+                    className="border-slate-300 text-slate-700 hover:bg-slate-100"
                   >
                     <Link href={`/deals/${deal.id}`}>Открыть deal room</Link>
                   </Button>

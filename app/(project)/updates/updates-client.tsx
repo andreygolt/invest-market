@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { ProjectUpdate } from '@/types';
@@ -80,78 +79,71 @@ export default function UpdatesClient() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-10">
+    <main className="min-h-screen bg-[#0a0a0a] px-4 py-10">
       <div className="mx-auto max-w-3xl space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold">Обновления проекта</h1>
+        <h1 className="text-2xl font-bold text-white">Обновления проекта</h1>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h2 className="text-lg font-semibold text-white mb-4">Опубликовать обновление</h2>
+          <form onSubmit={publishUpdate} className="space-y-4">
+            <Input
+              value={title}
+              maxLength={200}
+              onChange={(event) => setTitle(event.target.value)}
+              placeholder="Краткий заголовок обновления"
+              className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+            />
+            <Textarea
+              value={body}
+              maxLength={5000}
+              rows={6}
+              onChange={(event) => setBody(event.target.value)}
+              placeholder="Подробное описание..."
+              className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+            />
+            {error && <p className="text-sm text-red-400">{error}</p>}
+            <Button type="submit" disabled={submitting} className="bg-white text-black hover:bg-slate-200">
+              {submitting ? 'Публикуем...' : 'Опубликовать'}
+            </Button>
+          </form>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Опубликовать обновление</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={publishUpdate} className="space-y-4">
-              <Input
-                value={title}
-                maxLength={200}
-                onChange={(event) => setTitle(event.target.value)}
-                placeholder="Краткий заголовок обновления"
-              />
-              <Textarea
-                value={body}
-                maxLength={5000}
-                rows={6}
-                onChange={(event) => setBody(event.target.value)}
-                placeholder="Подробное описание..."
-              />
-              {error && <p className="text-sm text-red-600">{error}</p>}
-              <Button type="submit" disabled={submitting}>
-                {submitting ? 'Публикуем...' : 'Опубликовать'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
         {loading ? (
-          <p className="text-sm text-gray-500">Загрузка...</p>
+          <p className="text-sm text-slate-500">Загрузка...</p>
         ) : updates.length === 0 ? (
-          <Card>
-            <CardContent className="py-8 text-sm text-gray-500">
-              Обновлений ещё нет. Опубликуйте первое!
-            </CardContent>
-          </Card>
+          <div className="rounded-xl border border-slate-800 bg-slate-900 py-8 text-center text-sm text-slate-600">
+            Обновлений ещё нет. Опубликуйте первое!
+          </div>
         ) : (
           <div className="space-y-4">
             {updates.map((update) => (
-              <Card key={update.id}>
-                <CardHeader className="flex-row items-start justify-between gap-4">
+              <div key={update.id} className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+                <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
-                    <CardTitle className="text-lg">{update.title}</CardTitle>
-                    <p className="mt-1 text-xs text-gray-500">
+                    <h3 className="text-lg font-semibold text-white">{update.title}</h3>
+                    <p className="mt-1 text-xs text-slate-600">
                       {new Date(update.created_at).toLocaleString()}
                     </p>
                   </div>
                   <Button
                     type="button"
-                    variant="destructive"
+                    variant="outline"
                     size="sm"
+                    className="border-red-800 text-red-400 hover:bg-red-900/20 shrink-0"
                     onClick={() => void deleteUpdate(update.id)}
                   >
                     Удалить
                   </Button>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="whitespace-pre-wrap text-sm">{update.body}</p>
-                  {update.ai_summary !== null ? (
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">AI-резюме:</span> {update.ai_summary}
-                    </p>
-                  ) : (
-                    <p className="text-sm text-gray-500">Резюме генерируется...</p>
-                  )}
-                </CardContent>
-              </Card>
+                </div>
+                <p className="whitespace-pre-wrap text-sm text-slate-300">{update.body}</p>
+                {update.ai_summary !== null ? (
+                  <p className="mt-3 text-sm text-slate-500">
+                    <span className="font-medium text-slate-400">AI-резюме:</span> {update.ai_summary}
+                  </p>
+                ) : (
+                  <p className="mt-3 text-sm text-slate-600">Резюме генерируется...</p>
+                )}
+              </div>
             ))}
           </div>
         )}

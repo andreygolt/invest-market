@@ -23,20 +23,6 @@ interface PageProps {
   searchParams: Promise<CatalogSearchParams>;
 }
 
-const STAGE_LABELS: Record<string, string> = {
-  idea: 'Идея',
-  pre_seed: 'Pre-seed',
-  seed: 'Seed',
-  series_a_plus: 'Series A+',
-};
-
-const INVESTMENT_TYPE_LABELS: Record<string, string> = {
-  equity: 'Equity',
-  convertible_note: 'Conv. Note',
-  safe: 'SAFE',
-  debt: 'Долг',
-};
-
 type QuestionnaireRow = {
   answers: Record<string, unknown>;
 };
@@ -174,13 +160,13 @@ async function getCatalogData(searchParams: CatalogSearchParams) {
   });
 
   const sorted = [...filtered].sort((a, b) => {
-    if (searchParams.sort === 'score_desc') {
+    if (searchParams.sort === 'ai_score_desc' || searchParams.sort === 'score_desc') {
       return (b.ai_score ?? 0) - (a.ai_score ?? 0);
     }
-    if (searchParams.sort === 'ask_asc') {
+    if (searchParams.sort === 'min_investment_asc' || searchParams.sort === 'ask_asc') {
       return amountNumber(a.investment_ask) - amountNumber(b.investment_ask);
     }
-    return b.created_at.localeCompare(a.created_at);
+    return b.updated_at.localeCompare(a.updated_at);
   });
 
   const total = sorted.length;
@@ -200,106 +186,26 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const { catalog, filters } = await getCatalogData(resolvedSearchParams);
 
-  const activeFilters = [
-    resolvedSearchParams.industry,
-    resolvedSearchParams.stage
-      ? (STAGE_LABELS[resolvedSearchParams.stage] ?? resolvedSearchParams.stage)
-      : null,
-    resolvedSearchParams.country,
-    resolvedSearchParams.investment_type
-      ? (INVESTMENT_TYPE_LABELS[resolvedSearchParams.investment_type] ?? resolvedSearchParams.investment_type)
-      : null,
-  ].filter(Boolean);
-
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-slate-50">
       <div className="container mx-auto max-w-7xl px-4 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-slate-900">Каталог проектов</h1>
+          <p className="text-slate-500 text-sm mt-1">Проверенные инвестиционные возможности</p>
+        </div>
 
-<div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Каталог проектов</h1>
-        <p className="text-slate-400 mt-2">Проверенные инвестиционные возможности</p>
-      </div>
+        <Suspense>
+          <CatalogFilters
+            industries={filters.industries as string[]}
+            stages={filters.stages as string[]}
+          />
+        </Suspense>
 
-      <div className="flex gap-8">
-        <aside className="w-56 shrink-0">
-          <Suspense>
-            <CatalogFilters
-              industries={filters.industries as string[]}
-              stages={filters.stages as string[]}
-              countries={filters.countries as string[]}
-              investmentTypes={filters.investmentTypes as string[]}
-            />
-          </Suspense>
-        </aside>
-
-        <main className="flex-1">
-          <form method="GET" className="flex gap-2 mb-4">
-            {resolvedSearchParams.industry && (
-              <input type="hidden" name="industry" value={resolvedSearchParams.industry} />
-            )}
-            {resolvedSearchParams.stage && (
-              <input type="hidden" name="stage" value={resolvedSearchParams.stage} />
-            )}
-            {resolvedSearchParams.min_amount && (
-              <input type="hidden" name="min_amount" value={resolvedSearchParams.min_amount} />
-            )}
-            {resolvedSearchParams.max_amount && (
-              <input type="hidden" name="max_amount" value={resolvedSearchParams.max_amount} />
-            )}
-            {resolvedSearchParams.country && (
-              <input type="hidden" name="country" value={resolvedSearchParams.country} />
-            )}
-            {resolvedSearchParams.investment_type && (
-              <input
-                type="hidden"
-                name="investment_type"
-                value={resolvedSearchParams.investment_type}
-              />
-            )}
-            {resolvedSearchParams.sort && (
-              <input type="hidden" name="sort" value={resolvedSearchParams.sort} />
-            )}
-
-            <input
-              type="text"
-              name="q"
-              defaultValue={resolvedSearchParams.q ?? ''}
-              placeholder="Поиск по названию..."
-              className="flex-1 rounded-md border border-slate-800 bg-slate-950 px-3 py-1.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600"
-            />
-            <button
-              type="submit"
-              className="rounded-md border border-slate-700 bg-slate-900 px-4 py-1.5 text-sm text-white hover:bg-slate-800"
-            >
-              Найти
-            </button>
-            {resolvedSearchParams.q && (
-              <a
-                href={`/catalog?${new URLSearchParams(
-                  Object.fromEntries(
-                    Object.entries({
-                      industry: resolvedSearchParams.industry,
-                      stage: resolvedSearchParams.stage,
-                      min_amount: resolvedSearchParams.min_amount,
-                      max_amount: resolvedSearchParams.max_amount,
-                      country: resolvedSearchParams.country,
-                      investment_type: resolvedSearchParams.investment_type,
-                      sort: resolvedSearchParams.sort,
-                    }).filter(([, v]) => v != null) as [string, string][]
-                  )
-                )}`}
-                className="rounded-md border border-slate-800 px-3 py-1.5 text-sm text-slate-400 hover:text-white"
-              >
-                Сбросить
-              </a>
-            )}
-          </form>
+        <main>
 
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm text-slate-500">
-              {activeFilters.length > 0
-                ? `${catalog.total} проектов по фильтрам: ${activeFilters.join(', ')}`
-                : `${catalog.total} проектов`}
+              {catalog.total} проектов
             </p>
           </div>
 
@@ -317,7 +223,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-2">
               {catalog.items.map((item) => (
                 <CatalogCard key={item.id} item={item} />
               ))}
@@ -332,7 +238,6 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             />
           )}
         </main>
-      </div>
       </div>
     </div>
   );

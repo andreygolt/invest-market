@@ -38,12 +38,12 @@ export function NotificationPrefsSection({ initialEmailEnabled }: Props) {
   }
 
   return (
-    <div className="rounded-lg border p-6">
-      <h2 className="mb-4 text-sm font-semibold">Уведомления по email</h2>
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <h2 className="mb-4 text-lg font-semibold text-white">Уведомления по email</h2>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-700">Email-уведомления</p>
-          <p className="mt-0.5 text-xs text-gray-500">
+          <p className="text-sm text-slate-300">Email-уведомления</p>
+          <p className="mt-0.5 text-xs text-slate-500">
             Получать письма при изменении статусов и важных событиях
           </p>
         </div>
@@ -53,19 +53,19 @@ export function NotificationPrefsSection({ initialEmailEnabled }: Props) {
           role="switch"
           aria-checked={emailEnabled}
           className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus-visible:outline-none disabled:opacity-50 ${
-            emailEnabled ? 'bg-gray-900' : 'bg-gray-200'
+            emailEnabled ? 'bg-white' : 'bg-slate-700'
           }`}
         >
           <span
-            className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${
-              emailEnabled ? 'translate-x-5' : 'translate-x-0'
+            className={`pointer-events-none inline-block h-5 w-5 rounded-full shadow transition-transform ${
+              emailEnabled ? 'translate-x-5 bg-black' : 'translate-x-0 bg-slate-400'
             }`}
           />
         </button>
       </div>
-      {error && <p className="mt-3 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-3 text-xs text-red-400">{error}</p>}
       {success && (
-        <p className="mt-3 text-xs text-green-600">
+        <p className="mt-3 text-xs text-emerald-400">
           {emailEnabled ? 'Email-уведомления включены' : 'Email-уведомления отключены'}
         </p>
       )}

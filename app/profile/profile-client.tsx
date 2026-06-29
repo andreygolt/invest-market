@@ -3,7 +3,6 @@
 import { FormEvent, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { UserProfile, UserRole } from '@/types';
@@ -107,93 +106,102 @@ export function ProfileClient({ profile, email }: ProfileClientProps) {
   }
 
   return (
-    <div className="container mx-auto max-w-3xl space-y-6 px-4 py-8">
-      <Button asChild variant="outline">
-        <Link href={getBackHref(profile.role)}>Назад</Link>
-      </Button>
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-3xl space-y-6 px-4 py-8">
+        <Button asChild variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+          <Link href={getBackHref(profile.role)}>← Назад</Link>
+        </Button>
 
-      <div>
-        <h1 className="text-2xl font-bold">Профиль</h1>
-      </div>
+        <h1 className="text-3xl font-bold text-white">Профиль</h1>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Информация об аккаунте</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm">
-          <div className="grid gap-1">
-            <span className="text-gray-500">Email</span>
-            <span className="font-medium">{email}</span>
+        <div className="space-y-4 rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h2 className="text-lg font-semibold text-white">Информация об аккаунте</h2>
+          <div className="space-y-3 text-sm">
+            <div className="grid gap-1">
+              <span className="text-slate-500">Email</span>
+              <span className="font-medium text-slate-300">{email}</span>
+            </div>
+            <div className="grid gap-1">
+              <span className="text-slate-500">Роль</span>
+              <span className="font-medium text-slate-300">{ROLE_LABELS[profile.role]}</span>
+            </div>
+            <div className="grid gap-1">
+              <span className="text-slate-500">Дата регистрации</span>
+              <span className="font-medium text-slate-300">{registrationDate}</span>
+            </div>
           </div>
-          <div className="grid gap-1">
-            <span className="text-gray-500">Роль</span>
-            <span className="font-medium">{ROLE_LABELS[profile.role]}</span>
-          </div>
-          <div className="grid gap-1">
-            <span className="text-gray-500">Дата регистрации</span>
-            <span className="font-medium">{registrationDate}</span>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Редактирование имени</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h2 className="mb-4 text-lg font-semibold text-white">Редактирование имени</h2>
           <form className="space-y-4" onSubmit={saveName}>
             <div className="space-y-2">
-              <Label htmlFor="full_name">Полное имя</Label>
+              <Label htmlFor="full_name" className="text-sm text-slate-400">
+                Полное имя
+              </Label>
               <Input
                 id="full_name"
                 value={fullName}
                 maxLength={100}
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
                 onChange={(event) => setFullName(event.target.value)}
               />
             </div>
-            {nameMessage ? <p className="text-sm text-green-700">{nameMessage}</p> : null}
-            {nameError ? <p className="text-sm text-red-700">{nameError}</p> : null}
-            <Button type="submit" disabled={savingName}>
+            {nameMessage ? <p className="text-sm text-emerald-400">{nameMessage}</p> : null}
+            {nameError ? <p className="text-sm text-red-400">{nameError}</p> : null}
+            <Button
+              type="submit"
+              disabled={savingName}
+              className="bg-white text-black hover:bg-slate-200"
+            >
               {savingName ? 'Сохранение...' : 'Сохранить'}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Смена пароля</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+          <h2 className="mb-4 text-lg font-semibold text-white">Смена пароля</h2>
           <form className="space-y-4" onSubmit={changePassword}>
             <div className="space-y-2">
-              <Label htmlFor="new_password">Новый пароль</Label>
+              <Label htmlFor="new_password" className="text-sm text-slate-400">
+                Новый пароль
+              </Label>
               <Input
                 id="new_password"
                 type="password"
                 minLength={8}
                 value={newPassword}
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
                 onChange={(event) => setNewPassword(event.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="repeat_password">Повторите пароль</Label>
+              <Label htmlFor="repeat_password" className="text-sm text-slate-400">
+                Повторите пароль
+              </Label>
               <Input
                 id="repeat_password"
                 type="password"
                 minLength={8}
                 value={repeatPassword}
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
                 onChange={(event) => setRepeatPassword(event.target.value)}
               />
             </div>
-            {passwordMessage ? <p className="text-sm text-green-700">{passwordMessage}</p> : null}
-            {passwordError ? <p className="text-sm text-red-700">{passwordError}</p> : null}
-            <Button type="submit" disabled={savingPassword}>
+            {passwordMessage ? (
+              <p className="text-sm text-emerald-400">{passwordMessage}</p>
+            ) : null}
+            {passwordError ? <p className="text-sm text-red-400">{passwordError}</p> : null}
+            <Button
+              type="submit"
+              disabled={savingPassword}
+              className="bg-white text-black hover:bg-slate-200"
+            >
               {savingPassword ? 'Изменение...' : 'Изменить пароль'}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

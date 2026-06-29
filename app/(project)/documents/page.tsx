@@ -67,18 +67,18 @@ export default function DocumentsPage() {
   const byType = (type: DocumentType) => documents.filter(d => d.doc_type === type);
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><p className="text-gray-500">Загрузка...</p></div>;
+    return <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]"><p className="text-slate-500">Загрузка...</p></div>;
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
+    <main className="min-h-screen bg-[#0a0a0a] py-10 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
-          <h1 className="text-xl font-semibold">Документы проекта</h1>
-          <p className="text-sm text-gray-500 mt-1">Загрузите необходимые документы для андеррайтинга. Максимальный размер файла — 20 МБ.</p>
+          <h1 className="text-2xl font-semibold text-white">Документы проекта</h1>
+          <p className="text-sm text-slate-500 mt-1">Загрузите необходимые документы для андеррайтинга. Максимальный размер файла — 20 МБ.</p>
         </div>
 
-        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+        {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
         <input
           ref={fileInputRef}
@@ -92,30 +92,30 @@ export default function DocumentsPage() {
           {DOC_TYPES.map(dt => {
             const docs = byType(dt.value);
             return (
-              <div key={dt.value} className="bg-white rounded-lg shadow p-4">
+              <div key={dt.value} className="rounded-xl border border-slate-800 bg-slate-900 p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <span className="font-medium text-sm">{dt.label}</span>
-                    {dt.required && <span className="ml-2 text-xs text-red-500">обязательно</span>}
+                    <span className="font-medium text-sm text-slate-300">{dt.label}</span>
+                    {dt.required && <span className="ml-2 text-xs text-red-400">обязательно</span>}
                   </div>
                   <button
                     onClick={() => triggerUpload(dt.value)}
                     disabled={uploading === dt.value}
-                    className="text-sm text-blue-600 hover:underline disabled:opacity-50"
+                    className="text-sm text-slate-400 hover:text-white disabled:opacity-50"
                   >
                     {uploading === dt.value ? 'Загружаем...' : '+ Загрузить'}
                   </button>
                 </div>
                 {docs.length === 0 ? (
-                  <p className="text-xs text-gray-400">Файлы не загружены</p>
+                  <p className="text-xs text-slate-600">Файлы не загружены</p>
                 ) : (
                   <ul className="space-y-1">
                     {docs.map(doc => (
                       <li key={doc.id} className="flex items-center justify-between text-sm">
-                        <span className="text-gray-700 truncate max-w-xs">{doc.filename}</span>
+                        <span className="text-slate-400 truncate max-w-xs">{doc.filename}</span>
                         <button
                           onClick={() => deleteDoc(doc.id)}
-                          className="text-red-500 hover:underline text-xs ml-2 shrink-0"
+                          className="text-red-400 hover:text-red-300 text-xs ml-2 shrink-0"
                         >
                           Удалить
                         </button>
@@ -128,8 +128,8 @@ export default function DocumentsPage() {
           })}
         </div>
 
-        <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-xs text-yellow-800">
+        <div className="mt-8 p-4 rounded-xl border border-slate-800 bg-slate-900">
+          <p className="text-xs text-slate-500">
             Все загруженные документы будут использованы исключительно для AI-анализа и проверки модератором.
             Платформа не передаёт документы третьим лицам без вашего согласия.
           </p>

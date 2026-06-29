@@ -1,7 +1,6 @@
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -50,24 +49,26 @@ export default async function ProjectDashboardPage() {
 
   if (!project) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Создать проект</CardTitle>
-            <p className="text-sm text-gray-500">Введите название проекта, чтобы открыть кабинет.</p>
-          </CardHeader>
-          <CardContent>
-            <form action={createProject} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Название проекта</Label>
-                <Input id="name" name="name" required placeholder="Например: FinTech Startup" />
-              </div>
-              <Button type="submit" className="w-full">
-                Создать
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+      <main className="flex min-h-screen items-center justify-center bg-[#0a0a0a] px-4">
+        <div className="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-8">
+          <h1 className="mb-1 text-2xl font-bold text-white">Создать проект</h1>
+          <p className="mb-6 text-sm text-slate-500">Введите название проекта, чтобы открыть кабинет.</p>
+          <form action={createProject} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-sm text-slate-400">Название проекта</Label>
+              <Input
+                id="name"
+                name="name"
+                required
+                placeholder="Например: FinTech Startup"
+                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+              />
+            </div>
+            <Button type="submit" className="w-full bg-white text-black hover:bg-slate-200">
+              Создать
+            </Button>
+          </form>
+        </div>
       </main>
     );
   }

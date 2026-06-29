@@ -13,13 +13,6 @@ const STAGE_LABELS: Record<string, string> = {
   series_a_plus: 'Series A+',
 };
 
-const INVESTMENT_TYPE_LABELS: Record<string, string> = {
-  equity: 'Equity',
-  convertible_note: 'Conv. Note',
-  safe: 'SAFE',
-  debt: 'Долг',
-};
-
 function formatAmount(value: string | null) {
   if (!value) return null;
 
@@ -39,25 +32,26 @@ function formatAmount(value: string | null) {
 
 function getScoreClass(score: number) {
   if (score >= 80) {
-    return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+    return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
   }
 
-  return 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20';
+  if (score >= 60) {
+    return 'bg-amber-50 text-amber-700 border border-amber-200';
+  }
+
+  return 'bg-slate-100 text-slate-600 border border-slate-200';
 }
 
 export function CatalogCard({ item }: CatalogCardProps) {
   const amount = formatAmount(item.investment_ask);
   const score = item.ai_score;
-  const showScore = score !== null && score >= 60;
+  const showScore = score !== null;
   const stage = item.stage ? (STAGE_LABELS[item.stage] ?? item.stage) : null;
-  const investmentType = item.investment_type
-    ? (INVESTMENT_TYPE_LABELS[item.investment_type] ?? item.investment_type)
-    : null;
 
   return (
-    <article className="h-full rounded-xl border border-slate-800 bg-slate-900 p-6 transition-all duration-200 hover:border-slate-600 hover:shadow-lg hover:shadow-black/20">
+    <article className="h-full rounded-xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:border-slate-300 hover:shadow-md">
       <div className="flex items-start justify-between gap-3">
-        <span className="rounded-md bg-slate-800 px-2 py-1 text-xs text-slate-300">
+        <span className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-600">
           {item.industry ?? 'Отрасль'}
         </span>
         {showScore && (
@@ -70,16 +64,16 @@ export function CatalogCard({ item }: CatalogCardProps) {
       </div>
 
       <div className="mt-6 min-h-[112px]">
-        <h2 className="line-clamp-2 text-lg font-semibold leading-tight text-white">
+        <h2 className="line-clamp-2 text-lg font-semibold leading-tight text-slate-900">
           {item.name}
         </h2>
-        <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-400">
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-500">
           {item.short_description ?? item.description ?? 'Описание проекта пока не заполнено'}
         </p>
       </div>
 
-      <div className="mt-5 border-t border-slate-800 pt-5">
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-400">
+      <div className="mt-5 border-t border-slate-100 pt-5">
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600">
           {amount && (
             <span className="flex items-center gap-1.5">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -104,7 +98,7 @@ export function CatalogCard({ item }: CatalogCardProps) {
       <Button
         asChild
         variant="ghost"
-        className="mt-6 h-auto p-0 text-slate-400 hover:bg-transparent hover:text-white"
+        className="mt-6 h-auto p-0 text-slate-500 hover:bg-transparent hover:text-slate-900"
       >
         <Link href={`/deals/${item.id}`}>Открыть deal room →</Link>
       </Button>

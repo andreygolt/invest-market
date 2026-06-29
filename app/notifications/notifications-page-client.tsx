@@ -53,59 +53,74 @@ export default function NotificationsPageClient() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex gap-2">
-          <Button
-            variant={unreadOnly ? 'outline' : 'default'}
-            size="sm"
+        <div className="flex flex-wrap gap-2">
+          <button
             onClick={() => {
               if (unreadOnly) {
                 toggleUnreadOnly();
               }
             }}
+            className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+              !unreadOnly
+                ? 'bg-white text-black'
+                : 'border border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-300'
+            }`}
           >
             Все
-          </Button>
-          <Button
-            variant={unreadOnly ? 'default' : 'outline'}
-            size="sm"
+          </button>
+          <button
             onClick={() => {
               if (!unreadOnly) {
                 toggleUnreadOnly();
               }
             }}
+            className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+              unreadOnly
+                ? 'bg-white text-black'
+                : 'border border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-300'
+            }`}
           >
             Непрочитанные
-          </Button>
+          </button>
         </div>
-        <Button variant="outline" size="sm" onClick={() => void markAllAsRead()}>
+        <Button
+          variant="outline"
+          size="sm"
+          className="border-slate-700 text-slate-400 hover:bg-slate-800"
+          onClick={() => void markAllAsRead()}
+        >
           Прочитать все
         </Button>
       </div>
 
       {loading ? (
-        <div className="py-8 text-center text-sm text-gray-500">Загрузка...</div>
+        <div className="py-8 text-center text-sm text-slate-600">Загрузка...</div>
       ) : notifications.length === 0 ? (
-        <div className="py-8 text-center text-sm text-gray-500">Нет уведомлений</div>
+        <div className="py-8 text-center text-sm text-slate-600">Нет уведомлений</div>
       ) : (
         <div className="space-y-2">
           {notifications.map((notification) => {
             const card = (
               <div
-                className={`rounded-md border bg-white p-4 ${
-                  notification.is_read ? '' : 'border-l-4 border-blue-500'
+                className={`rounded-xl border bg-slate-900 p-4 ${
+                  notification.is_read
+                    ? 'border-slate-800'
+                    : 'border-l-4 border-l-blue-500 border-slate-800'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
                     <div
                       className={`text-sm ${
-                        notification.is_read ? 'font-medium' : 'font-semibold'
+                        notification.is_read
+                          ? 'font-medium text-slate-300'
+                          : 'font-semibold text-white'
                       }`}
                     >
                       {notification.title}
                     </div>
-                    <div className="text-sm leading-5 text-gray-600">{notification.body}</div>
-                    <div className="text-xs text-gray-400">
+                    <div className="text-sm leading-5 text-slate-500">{notification.body}</div>
+                    <div className="text-xs text-slate-700">
                       {new Date(notification.created_at).toLocaleString('ru-RU')}
                     </div>
                   </div>
@@ -113,14 +128,14 @@ export default function NotificationsPageClient() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-7 shrink-0 px-2"
+                      className="h-7 shrink-0 px-2 text-slate-500 hover:text-slate-300"
                       onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
                         void markAsRead(notification.id);
                       }}
                     >
-                      x
+                      ✕
                     </Button>
                   )}
                 </div>
@@ -143,17 +158,19 @@ export default function NotificationsPageClient() {
           <Button
             variant="outline"
             size="sm"
+            className="border-slate-700 text-slate-400 hover:bg-slate-800"
             disabled={page <= 1 || loading}
             onClick={() => setPage((currentPage) => currentPage - 1)}
           >
             ← Назад
           </Button>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-slate-500">
             {page} / {totalPages}
           </span>
           <Button
             variant="outline"
             size="sm"
+            className="border-slate-700 text-slate-400 hover:bg-slate-800"
             disabled={page >= totalPages || loading}
             onClick={() => setPage((currentPage) => currentPage + 1)}
           >

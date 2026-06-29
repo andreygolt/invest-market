@@ -1,5 +1,4 @@
 import { cookies, headers } from 'next/headers';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { SuccessFeeSummary } from '@/types';
 
 export const dynamic = 'force-dynamic';
@@ -36,53 +35,47 @@ export default async function ProjectCommercialTermsPage() {
   const summary = await getCommercialTerms();
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Мои коммерческие условия</h1>
-      </div>
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="container mx-auto max-w-3xl px-4 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-white">Мои коммерческие условия</h1>
+        </div>
 
-      {summary.terms === null ? (
-        <Card>
-          <CardContent className="py-10 text-gray-600">
+        {summary.terms === null ? (
+          <div className="rounded-xl border border-slate-800 bg-slate-900 py-10 px-6 text-slate-500">
             Условия сотрудничества ещё не установлены. Обратитесь к администратору платформы.
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Условия сотрудничества</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-4 text-sm">
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+              <h2 className="text-lg font-semibold text-white">Условия сотрудничества</h2>
               <div>
-                <div className="text-gray-500">Success fee (%)</div>
-                <div className="text-lg font-semibold">{summary.terms.success_fee_pct}</div>
+                <div className="text-sm text-slate-500">Success fee (%)</div>
+                <div className="text-lg font-semibold text-slate-300">{summary.terms.success_fee_pct}</div>
               </div>
               <div>
-                <div className="text-gray-500">Фиксированная часть (₽)</div>
-                <div className="text-lg font-semibold">{formatRub(summary.terms.fixed_fee)}</div>
+                <div className="text-sm text-slate-500">Фиксированная часть (₽)</div>
+                <div className="text-lg font-semibold text-slate-300">{formatRub(summary.terms.fixed_fee)}</div>
               </div>
               <div>
-                <div className="text-gray-500">Заметки</div>
-                <div>{summary.terms.notes ?? 'Нет заметок'}</div>
+                <div className="text-sm text-slate-500">Заметки</div>
+                <div className="text-sm text-slate-300">{summary.terms.notes ?? 'Нет заметок'}</div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          {summary.estimated_fee !== null ? (
-            <Card>
-              <CardContent className="py-6">
-                <div className="text-lg font-semibold">
+            {summary.estimated_fee !== null ? (
+              <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-4">
+                <div className="text-lg font-semibold text-slate-300">
                   Ориентировочное вознаграждение платформы: {formatRub(summary.estimated_fee)}
                 </div>
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="text-sm text-slate-500">
                   Расчёт носит оценочный характер и основан на зафиксированных инвестициях.
                 </p>
-              </CardContent>
-            </Card>
-          ) : null}
-        </div>
-      )}
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

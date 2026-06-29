@@ -1,3 +1,8 @@
+REVIEWED: T99
+REVIEWED: T90
+— тёмная тема для кабинета проекта, документов, отправки, обновлений и коммерческих условий
+REVIEWED: T89
+— тёмная тема для investor dashboard, notifications и profile
 REVIEWED: T89
 REVIEWED: T88
 REVIEWED: T87
@@ -443,6 +448,166 @@ session id: 019f0f7c-1644-7702-b332-c23fdb6b9134
 --------
 user
 Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T69_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T69
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T91
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12c6-50c8-7b30-beed-162b2d25656d
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T91_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T91
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T92
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12c9-5199-72d1-9ca5-3bd19b03fa9f
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T92_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T92
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T93
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12cb-70e4-7dc3-abe0-baa5fc8ef539
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T93_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T93
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T94
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12cd-bb84-7fb1-aaa5-db4ec5b7e1f4
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T94_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T94
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T95
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d0-9dfc-7ed0-8153-6642ae8b6b7d
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T95_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T95
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T96
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d2-ae9a-7283-b50a-89fb5aca7b09
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T96_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T96
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T97
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d4-cbcd-73a3-a5c1-c1148cbe3ffd
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T97_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T97
+' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
+```
+
+## Ошибка Codex T98
+```
+Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d7-5b3b-7b21-a4fa-f344d826aea2
+--------
+user
+Читай invest_market/AGENTS.md. Читай /Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market/CODEX_T98_TASK.md. Реализуй точно по ТЗ — ничего лишнего. После реализации запусти из папки invest_market/: npm run build && npm run lint && npm test. Если есть ошибки — исправь. Когда всё чисто — добавь строку 'REVIEWED: T98
 ' в самое начало файла invest_market/progress.md (перед всем остальным текстом).
 ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.
 ```

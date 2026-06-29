@@ -8,18 +8,18 @@ export default async function InvestorLayout({ children }: { children: React.Rea
   const [unread, userId] = await Promise.all([getUnreadCount(), getCurrentUserId()]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white border-b border-slate-200">
         <div className="container mx-auto px-4 py-3 flex items-center gap-6">
-          <span className="font-semibold">Invest Market</span>
-          <nav className="flex gap-4 text-sm text-muted-foreground">
-            <Link href="/catalog" className="hover:text-foreground">
+          <span className="font-semibold text-slate-900">Invest Market</span>
+          <nav className="flex gap-4 text-sm">
+            <Link href="/catalog" className="text-slate-600 hover:text-slate-900 transition-colors">
               Каталог
             </Link>
-            <Link href="/referral" className="hover:text-foreground">
+            <Link href="/referral" className="text-slate-600 hover:text-slate-900 transition-colors">
               Партнёрская программа
             </Link>
-            <Link href="/profile" className="hover:text-foreground">
+            <Link href="/profile" className="text-slate-600 hover:text-slate-900 transition-colors">
               Профиль
             </Link>
           </nav>
@@ -29,7 +29,7 @@ export default async function InvestorLayout({ children }: { children: React.Rea
         </div>
       </header>
       <main>{children}</main>
-      <footer className="border-t mt-auto py-4">
+      <footer className="border-t border-slate-200 bg-white mt-auto py-4">
         <div className="container mx-auto px-4">
           <Disclaimer variant="compact" />
         </div>

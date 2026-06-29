@@ -845,3 +845,171 @@ u
 НАЗН...
 [12:25:40] Ревью OK → T89 создан
 [12:25:42] Codex[0] → T89 (попытка 1/2)...
+[12:32:46] Codex[0] завершил T89 (rc=0)
+[12:32:51] DONE: T89 → запускаю ревью
+[12:32:51] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:37:11] Ревью OK → T90 создан
+[12:37:13] Codex[0] → T90 (попытка 1/2)...
+[12:42:15] Codex[0] завершил T90 (rc=0)
+[12:42:20] DONE: T90 → запускаю ревью
+[12:42:20] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:46:48] Ревью OK → T91 создан
+[12:46:50] Codex[0] → T91 (попытка 1/2)...
+[12:46:58] Codex[0] ошибка T91 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12c6-50c8-7b30-beed-162b2d25656d
+--------
+u
+[12:46:58] Codex T91 упал. Жду DONE на случай если он всё же записал результат...
+[12:47:03] DONE: T91 → запускаю ревью
+[12:47:03] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:50:07] Ревью OK → T92 создан
+[12:50:09] Codex[0] → T92 (попытка 1/2)...
+[12:50:14] Codex[0] ошибка T92 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12c9-5199-72d1-9ca5-3bd19b03fa9f
+--------
+u
+[12:50:14] Codex T92 упал. Жду DONE на случай если он всё же записал результат...
+[12:50:19] DONE: T92 → запускаю ревью
+[12:50:19] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:52:27] Ревью OK → T93 создан
+[12:52:29] Codex[0] → T93 (попытка 1/2)...
+[12:52:33] Codex[0] ошибка T93 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12cb-70e4-7dc3-abe0-baa5fc8ef539
+--------
+u
+[12:52:33] Codex T93 упал. Жду DONE на случай если он всё же записал результат...
+[12:52:38] DONE: T93 → запускаю ревью
+[12:52:38] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:54:56] Ревью OK → T94 создан
+[12:54:58] Codex[0] → T94 (попытка 1/2)...
+[12:55:03] Codex[0] ошибка T94 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12cd-bb84-7fb1-aaa5-db4ec5b7e1f4
+--------
+u
+[12:55:03] Codex T94 упал. Жду DONE на случай если он всё же записал результат...
+[12:55:08] DONE: T94 → запускаю ревью
+[12:55:08] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[12:58:05] Ревью OK → T95 создан
+[12:58:07] Codex[0] → T95 (попытка 1/2)...
+[12:58:13] Codex[0] ошибка T95 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d0-9dfc-7ed0-8153-6642ae8b6b7d
+--------
+u
+[12:58:13] Codex T95 упал. Жду DONE на случай если он всё же записал результат...
+[12:58:18] DONE: T95 → запускаю ревью
+[12:58:18] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[13:00:21] Ревью OK → T96 создан
+[13:00:23] Codex[0] → T96 (попытка 1/2)...
+[13:00:28] Codex[0] ошибка T96 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d2-ae9a-7283-b50a-89fb5aca7b09
+--------
+u
+[13:00:28] Codex T96 упал. Жду DONE на случай если он всё же записал результат...
+[13:00:33] DONE: T96 → запускаю ревью
+[13:00:33] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[13:02:39] Ревью OK → T97 создан
+[13:02:41] Codex[0] → T97 (попытка 1/2)...
+[13:02:46] Codex[0] ошибка T97 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d4-cbcd-73a3-a5c1-c1148cbe3ffd
+--------
+u
+[13:02:46] Codex T97 упал. Жду DONE на случай если он всё же записал результат...
+[13:02:51] DONE: T97 → запускаю ревью
+[13:02:51] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[13:05:27] Ревью OK → T98 создан
+[13:05:29] Codex[0] → T98 (попытка 1/2)...
+[13:05:34] Codex[0] ошибка T98 (rc=1): Reading additional input from stdin...
+OpenAI Codex v0.142.2
+--------
+workdir: /Users/andrey/Downloads/ИИ АНДРЕЙ
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: none
+session id: 019f12d7-5b3b-7b21-a4fa-f344d826aea2
+--------
+u
+[13:05:34] Codex T98 упал. Жду DONE на случай если он всё же записал результат...
+[13:05:39] DONE: T98 → запускаю ревью
+[13:05:39] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
+[13:07:54] Ревью OK → T99 создан
+[13:07:56] Codex[0] → T99 (попытка 1/2)...
+[13:15:58] Codex[0] завершил T99 (rc=0)
+[13:16:03] DONE: T99 → запускаю ревью
+[13:16:03] Claude: ПРОЕКТ: invest_market — закрытый инвестиционный маркет с AI-андеррайтингом.
+НАЗН...
