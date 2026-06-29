@@ -38,15 +38,40 @@ export default async function HomePage() {
             Инвестиции в проверенные проекты
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-slate-400">
-            Закрытый маркет с AI-андеррайтингом. Каждый проект проходит глубокую проверку
-            перед допуском к инвесторам.
+            Каждый проект проходит двойную проверку — AI-андеррайтинг и экспертный анализ опытных аналитиков. Только залоговые сделки: ваши вложения защищены реальными активами.
           </p>
-          <Link
-            href="/login"
-            className="mt-8 inline-flex rounded-lg bg-white px-6 py-2.5 font-medium text-black transition hover:bg-slate-100"
-          >
-            Войти
-          </Link>
+
+          {/* Три тезиса */}
+          <div className="mx-auto mt-8 flex max-w-lg flex-col gap-3 text-left sm:flex-row sm:gap-4">
+            <div className="flex-1 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
+              <div className="text-sm font-medium text-white">🔒 Залоговая защита</div>
+              <div className="mt-1 text-xs text-slate-500">Каждая сделка обеспечена залогом</div>
+            </div>
+            <div className="flex-1 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
+              <div className="text-sm font-medium text-white">🤖 AI + аналитики</div>
+              <div className="mt-1 text-xs text-slate-500">Двойная проверка каждого проекта</div>
+            </div>
+            <div className="flex-1 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3">
+              <div className="text-sm font-medium text-white">🎯 Закрытый доступ</div>
+              <div className="mt-1 text-xs text-slate-500">Только проверенные инвесторы</div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Link
+              href="/login"
+              className="inline-flex rounded-lg bg-white px-6 py-2.5 font-medium text-black transition hover:bg-slate-100"
+            >
+              Войти
+            </Link>
+            <a
+              href="mailto:goltyandrey@gmail.com?subject=Запрос приглашения на Invest Market"
+              className="inline-flex rounded-lg border border-slate-700 px-6 py-2.5 font-medium text-slate-300 transition hover:border-slate-500 hover:text-white"
+            >
+              Получить приглашение
+            </a>
+          </div>
+          <p className="mt-3 text-xs text-slate-600">Нет приглашения? Оставьте запрос — мы рассмотрим вашу кандидатуру</p>
         </div>
       </section>
 
