@@ -118,7 +118,7 @@ export function InviteCreateForm() {
       {createdUrl ? (
         <div className="md:col-span-4 rounded-md border bg-white p-4 shadow-sm">
           <div className="mb-3 text-sm font-medium">Инвайт создан</div>
-          <div className="mb-4 break-all rounded-md bg-gray-50 p-3 font-mono text-sm">
+          <div className="mb-4 break-all rounded-md bg-slate-50 p-3 font-mono text-sm">
             {createdUrl}
           </div>
           <div className="flex gap-2">

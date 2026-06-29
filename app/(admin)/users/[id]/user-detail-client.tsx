@@ -138,23 +138,23 @@ export default function UserDetailClient({ user, actorRole, applications, portfo
         <CardContent className="pt-6">
           <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <dt className="text-xs font-medium text-gray-500">Имя</dt>
+              <dt className="text-xs font-medium text-slate-500">Имя</dt>
               <dd className="mt-1 text-sm font-medium">{user.full_name ?? '-'}</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium text-gray-500">Email</dt>
+              <dt className="text-xs font-medium text-slate-500">Email</dt>
               <dd className="mt-1 text-sm">{user.email}</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium text-gray-500">Текущая роль</dt>
+              <dt className="text-xs font-medium text-slate-500">Текущая роль</dt>
               <dd className="mt-1 text-sm">{ROLE_LABELS[user.role] ?? user.role}</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium text-gray-500">Дата регистрации</dt>
+              <dt className="text-xs font-medium text-slate-500">Дата регистрации</dt>
               <dd className="mt-1 text-sm">{formatDate(user.created_at)}</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium text-gray-500">Статус</dt>
+              <dt className="text-xs font-medium text-slate-500">Статус</dt>
               <dd className="mt-1">
                 <Badge
                   variant="outline"
@@ -251,7 +251,7 @@ export default function UserDetailClient({ user, actorRole, applications, portfo
                         : '-'}
                     </TableCell>
                     <TableCell>{STATUS_LABELS[application.status] ?? application.status}</TableCell>
-                    <TableCell className="text-gray-500">
+                    <TableCell className="text-slate-500">
                       {formatDate(application.created_at)}
                     </TableCell>
                   </TableRow>
@@ -283,7 +283,7 @@ export default function UserDetailClient({ user, actorRole, applications, portfo
                     <TableCell className="text-right tabular-nums">
                       {entry.amount.toLocaleString('ru-RU')} ₽
                     </TableCell>
-                    <TableCell className="text-gray-500">{formatDate(entry.created_at)}</TableCell>
+                    <TableCell className="text-slate-500">{formatDate(entry.created_at)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

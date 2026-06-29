@@ -51,7 +51,7 @@ export default function ExportPageClient() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-600">
         Скачайте данные платформы в формате CSV для отчётности или интеграции с внешними системами.
       </p>
 

@@ -1,3 +1,38 @@
+REVIEWED: T118
+- создан __tests__/t118.test.ts: 19 тестов для GET /api/investor/favorites, POST /api/investor/favorites, PATCH /api/investor/favorites/[id], DELETE /api/investor/favorites/[id]
+
+REVIEWED: T117
+- создан __tests__/t117.test.ts: 14 тестов для GET /api/investor/dashboard, GET /api/admin/audit-log
+
+REVIEWED: T116
+- создан __tests__/t116.test.ts: 20 тестов для GET /api/profile, PATCH /api/profile, GET /api/profile/notification-preferences, PATCH /api/profile/notification-preferences, POST /api/profile/password
+
+REVIEWED: T115
+REVIEWED: T114
+- создан __tests__/t114.test.ts: 11 тестов для GET /api/notifications, POST /api/notifications/read-all, PATCH /api/notifications/[id]
+
+REVIEWED: T113
+- изменён app/apply/questionnaire/page.tsx: border-gray-300 → border-slate-200, focus:ring-gray-400 → focus:ring-slate-300 (4 элемента)
+- создан __tests__/t113.test.ts: 17 тестов для POST /api/apply и PATCH /api/projects/[projectId]/questionnaire
+
+REVIEWED: T112
+- изменён app/(investor)/applications/applications-client.tsx: миграция тёмной темы → slate (bg-white, border-slate-200, text-slate-900), добавлена ссылка «Подробнее» на карточках
+- изменён app/api/investor/applications/[id]/route.ts: добавлен GET (одна заявка инвестора с проверкой owner)
+- создан app/(investor)/applications/[id]/page.tsx: серверный компонент, детальный просмотр заявки с дисклеймером
+
+REVIEWED: T111
+REVIEWED: T110
+REVIEWED: T109
+REVIEWED: T108
+REVIEWED: T107
+REVIEWED: T106
+REVIEWED: T105
+REVIEWED: T104
+REVIEWED: T103
+REVIEWED: T102
+REVIEWED: T102
+REVIEWED: T101
+REVIEWED: T100
 REVIEWED: T99
 REVIEWED: T90
 — тёмная тема для кабинета проекта, документов, отправки, обновлений и коммерческих условий

@@ -26,20 +26,20 @@ export default function PaginationControls({ page, totalPages, searchParams }: P
       {page > 1 && (
         <Link
           href={buildHref(page - 1)}
-          className="px-3 py-1 rounded border text-sm hover:bg-gray-50"
+          className="px-3 py-1 rounded border text-sm hover:bg-slate-50"
         >
           ← Назад
         </Link>
       )}
 
-      <span className="text-sm text-gray-600">
+      <span className="text-sm text-slate-600">
         Страница {page} из {totalPages}
       </span>
 
       {page < totalPages && (
         <Link
           href={buildHref(page + 1)}
-          className="px-3 py-1 rounded border text-sm hover:bg-gray-50"
+          className="px-3 py-1 rounded border text-sm hover:bg-slate-50"
         >
           Вперёд →
         </Link>

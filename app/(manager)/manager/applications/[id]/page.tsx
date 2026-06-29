@@ -112,25 +112,25 @@ export default async function ManagerApplicationDetailPage({ params }: PageProps
 
       <div className="space-y-3 rounded-md border bg-white p-4 text-sm">
         <div className="grid grid-cols-2 gap-2">
-          <span className="text-gray-500">Проект</span>
+          <span className="text-slate-500">Проект</span>
           <span>{project?.name ?? application.project_id}</span>
 
-          <span className="text-gray-500">Инвестор</span>
+          <span className="text-slate-500">Инвестор</span>
           <span>{investor?.email ?? application.investor_id}</span>
 
-          <span className="text-gray-500">Сумма</span>
+          <span className="text-slate-500">Сумма</span>
           <span>{formatAmount(application.amount)}</span>
 
-          <span className="text-gray-500">Инструмент</span>
+          <span className="text-slate-500">Инструмент</span>
           <span>{application.instrument ?? '-'}</span>
 
-          <span className="text-gray-500">Комментарий</span>
+          <span className="text-slate-500">Комментарий</span>
           <span>{application.message ?? '-'}</span>
 
-          <span className="text-gray-500">Статус</span>
+          <span className="text-slate-500">Статус</span>
           <span>{application.status}</span>
 
-          <span className="text-gray-500">Дата подачи</span>
+          <span className="text-slate-500">Дата подачи</span>
           <span>{new Date(application.created_at).toLocaleDateString('ru-RU')}</span>
         </div>
       </div>

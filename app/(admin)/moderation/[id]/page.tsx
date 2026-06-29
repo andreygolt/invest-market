@@ -106,7 +106,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
           <h1 className="text-2xl font-bold">{project.name}</h1>
           <div className="flex items-center gap-2 mt-1">
             <Badge>{project.status}</Badge>
-            <span className="text-sm text-gray-500">ID: {project.id}</span>
+            <span className="text-sm text-slate-500">ID: {project.id}</span>
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
             )}
 
             {aiReport.status !== 'done' && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-500">
                 {aiReport.status === 'processing'
                   ? 'AI-анализ выполняется...'
                   : aiReport.status === 'error'
@@ -193,7 +193,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
 
       {!aiReport && (
         <Card>
-          <CardContent className="py-6 text-center text-gray-500 text-sm">
+          <CardContent className="py-6 text-center text-slate-500 text-sm">
             AI-анализ ещё не выполнен
           </CardContent>
         </Card>
@@ -205,10 +205,10 @@ export default async function ModerationDetailPage({ params }: PageProps) {
             <CardTitle>Черновик карточки для инвесторов</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-500">
               Автоматически сгенерировано AI на основе анкеты и документов
             </p>
-            <pre className="bg-gray-100 rounded p-3 text-xs overflow-auto whitespace-pre-wrap">
+            <pre className="bg-slate-100 rounded p-3 text-xs overflow-auto whitespace-pre-wrap">
               {report.draft_card}
             </pre>
           </CardContent>
@@ -221,7 +221,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
         </CardHeader>
         <CardContent>
           {documents.length === 0 && (
-            <p className="text-sm text-gray-500">Документы не загружены</p>
+            <p className="text-sm text-slate-500">Документы не загружены</p>
           )}
 
           {documents.length > 0 && (
@@ -233,7 +233,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
                 >
                   <div>
                     <p className="text-sm font-medium">{document.file_name}</p>
-                    <p className="text-xs text-gray-500">{document.document_type}</p>
+                    <p className="text-xs text-slate-500">{document.document_type}</p>
                   </div>
                   <Badge
                     variant={getExtractionBadgeVariant(document.extraction_status)}
@@ -261,7 +261,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
                 <h3 className="font-semibold text-sm uppercase tracking-wide mb-2">
                   Секция {section.section.toUpperCase()}
                 </h3>
-                <pre className="bg-gray-100 rounded p-3 text-xs overflow-auto max-h-48">
+                <pre className="bg-slate-100 rounded p-3 text-xs overflow-auto max-h-48">
                   {JSON.stringify(section.answers, null, 2)}
                 </pre>
               </div>
@@ -274,7 +274,7 @@ export default async function ModerationDetailPage({ params }: PageProps) {
 
       {!canModerate && (
         <Card>
-          <CardContent className="py-6 text-center text-gray-500 text-sm">
+          <CardContent className="py-6 text-center text-slate-500 text-sm">
             Проект уже обработан: статус <strong>{project.status}</strong>
             {project.rejection_reason && (
               <p className="mt-2">Причина отклонения: {project.rejection_reason}</p>

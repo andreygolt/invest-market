@@ -8,7 +8,7 @@ const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   pending: { label: 'Ожидают', color: 'bg-yellow-100 text-yellow-800' },
   approved: { label: 'Одобрены', color: 'bg-green-100 text-green-700' },
   rejected: { label: 'Отклонены', color: 'bg-red-100 text-red-700' },
-  cancelled: { label: 'Отменены', color: 'bg-gray-100 text-gray-600' },
+  cancelled: { label: 'Отменены', color: 'bg-slate-100 text-slate-600' },
 };
 
 interface Props {
@@ -26,14 +26,14 @@ export function ManagerDashboardClient({ data }: Props) {
         {(Object.entries(stats) as [string, number][]).map(([status, count]) => {
           const meta = STATUS_LABELS[status] ?? {
             label: status,
-            color: 'bg-gray-100 text-gray-700',
+            color: 'bg-slate-100 text-slate-700',
           };
 
           return (
             <Link
               key={status}
               href={`/manager/applications?status=${status}`}
-              className="rounded-lg border p-4 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border p-4 hover:bg-slate-50 transition-colors"
             >
               <p className="text-3xl font-bold">{count}</p>
               <span
@@ -51,13 +51,13 @@ export function ManagerDashboardClient({ data }: Props) {
         <div className="flex flex-wrap gap-2">
           <Link
             href="/manager/applications?status=pending"
-            className="rounded-md bg-gray-900 text-white px-3 py-1.5 text-sm hover:bg-gray-700"
+            className="rounded-md bg-slate-900 text-white px-3 py-1.5 text-sm hover:bg-slate-700"
           >
             Обработать заявки ({stats.pending})
           </Link>
           <Link
             href="/manager/applications"
-            className="rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50"
+            className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
           >
             Все заявки
           </Link>
@@ -68,7 +68,7 @@ export function ManagerDashboardClient({ data }: Props) {
         <div className="rounded-lg border p-5">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold">Последние заявки</h2>
-            <Link href="/manager/applications" className="text-xs text-gray-500 hover:underline">
+            <Link href="/manager/applications" className="text-xs text-slate-500 hover:underline">
               Все заявки
             </Link>
           </div>
@@ -76,15 +76,15 @@ export function ManagerDashboardClient({ data }: Props) {
             {recentApplications.map((app) => {
               const meta = STATUS_LABELS[app.status] ?? {
                 label: app.status,
-                color: 'bg-gray-100 text-gray-700',
+                color: 'bg-slate-100 text-slate-700',
               };
 
               return (
                 <li key={app.id} className="py-3 flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-sm font-medium truncate">{app.project_name ?? '-'}</p>
-                    <p className="text-xs text-gray-500 truncate">{app.investor_email ?? '-'}</p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-slate-500 truncate">{app.investor_email ?? '-'}</p>
+                    <p className="text-xs text-slate-400">
                       {new Date(app.created_at).toLocaleDateString('ru-RU')}
                     </p>
                   </div>

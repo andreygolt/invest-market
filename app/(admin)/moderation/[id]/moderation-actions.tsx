@@ -115,7 +115,7 @@ export function ModerationActions({ projectId, projectName }: ModerationActionsP
                 className="mt-1"
                 rows={4}
               />
-              <p className="text-xs text-gray-500 mt-1">Причина будет видна владельцу проекта</p>
+              <p className="text-xs text-slate-500 mt-1">Причина будет видна владельцу проекта</p>
             </div>
             <Button
               variant="destructive"

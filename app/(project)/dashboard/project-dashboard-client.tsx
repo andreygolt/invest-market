@@ -6,7 +6,7 @@ import { StatusTimeline } from '@/components/project/status-timeline';
 import type { ProjectStatusLogEntry } from '@/types';
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  draft: { label: 'Черновик', color: 'bg-gray-100 text-gray-700' },
+  draft: { label: 'Черновик', color: 'bg-slate-100 text-slate-700' },
   submitted: { label: 'На модерации', color: 'bg-yellow-100 text-yellow-800' },
   approved: { label: 'Опубликован', color: 'bg-green-100 text-green-700' },
   rejected: { label: 'Отклонён', color: 'bg-red-100 text-red-700' },
@@ -46,12 +46,12 @@ export function ProjectDashboardClient({
     return (
       <div className="mx-auto max-w-2xl py-16 text-center">
         <h1 className="mb-4 text-xl font-semibold">Проект не найден</h1>
-        <p className="mb-6 text-sm text-gray-500">
+        <p className="mb-6 text-sm text-slate-500">
           У вашего аккаунта нет зарегистрированного проекта.
         </p>
         <Link
           href="/questionnaire"
-          className="inline-flex items-center rounded-md bg-gray-900 px-4 py-2 text-sm text-white"
+          className="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm text-white"
         >
           Заполнить анкету
         </Link>
@@ -61,7 +61,7 @@ export function ProjectDashboardClient({
 
   const statusMeta = STATUS_LABELS[project.status] ?? {
     label: project.status,
-    color: 'bg-gray-100 text-gray-700',
+    color: 'bg-slate-100 text-slate-700',
   };
 
   return (
@@ -69,7 +69,7 @@ export function ProjectDashboardClient({
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">{project.name}</h1>
-          {project.category && <p className="mt-1 text-sm text-gray-500">{project.category}</p>}
+          {project.category && <p className="mt-1 text-sm text-slate-500">{project.category}</p>}
         </div>
         <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusMeta.color}`}>
           {statusMeta.label}
@@ -79,11 +79,11 @@ export function ProjectDashboardClient({
       <div className="grid grid-cols-2 gap-4">
         <div className="rounded-lg border p-5">
           <p className="text-3xl font-bold">{viewsCount}</p>
-          <p className="mt-1 text-sm text-gray-500">Просмотров deal room</p>
+          <p className="mt-1 text-sm text-slate-500">Просмотров deal room</p>
         </div>
         <div className="rounded-lg border p-5">
           <p className="text-3xl font-bold">{applicationsCount}</p>
-          <p className="mt-1 text-sm text-gray-500">Заявок от инвесторов</p>
+          <p className="mt-1 text-sm text-slate-500">Заявок от инвесторов</p>
         </div>
       </div>
 
@@ -93,24 +93,24 @@ export function ProjectDashboardClient({
         <h2 className="mb-3 text-sm font-semibold">Быстрые действия</h2>
         <div className="flex flex-wrap gap-2">
           {(project.status === 'draft' || project.status === 'rejected') && (
-            <Link href="/questionnaire" className="rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50">
+            <Link href="/questionnaire" className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50">
               Редактировать анкету
             </Link>
           )}
           {project.status === 'draft' && (
             <Link
               href="/submit"
-              className="rounded-md bg-gray-900 px-3 py-1.5 text-sm text-white hover:bg-gray-700"
+              className="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
             >
               Отправить на модерацию
             </Link>
           )}
           {project.status === 'approved' && (
-            <Link href="/updates" className="rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50">
+            <Link href="/updates" className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50">
               Опубликовать обновление
             </Link>
           )}
-          <Link href="/documents" className="rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50">
+          <Link href="/documents" className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50">
             Документы
           </Link>
         </div>
@@ -120,7 +120,7 @@ export function ProjectDashboardClient({
         <div className="rounded-lg border p-5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-sm font-semibold">Последние обновления</h2>
-            <Link href="/updates" className="text-xs text-gray-500 hover:underline">
+            <Link href="/updates" className="text-xs text-slate-500 hover:underline">
               Все обновления
             </Link>
           </div>
@@ -129,9 +129,9 @@ export function ProjectDashboardClient({
               <li key={update.id} className="text-sm">
                 <p className="font-medium">{update.title}</p>
                 {update.ai_summary && (
-                  <p className="mt-0.5 line-clamp-2 text-xs text-gray-500">{update.ai_summary}</p>
+                  <p className="mt-0.5 line-clamp-2 text-xs text-slate-500">{update.ai_summary}</p>
                 )}
-                <p className="mt-0.5 text-xs text-gray-400">
+                <p className="mt-0.5 text-xs text-slate-400">
                   {new Date(update.created_at).toLocaleDateString('ru-RU')}
                 </p>
               </li>

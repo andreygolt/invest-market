@@ -11,7 +11,7 @@ type AdminDashboardClientProps = {
 };
 
 const STATUS_BADGE_CLASSES: Record<string, string> = {
-  draft: 'border-gray-200 bg-gray-50 text-gray-700',
+  draft: 'border-slate-200 bg-slate-50 text-slate-700',
   submitted: 'border-blue-200 bg-blue-50 text-blue-800',
   approved: 'border-green-200 bg-green-50 text-green-800',
   rejected: 'border-red-200 bg-red-50 text-red-800',
@@ -48,11 +48,11 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Проекты</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Проекты</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.projects.total}</div>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-slate-500">
               Черновик: {stats.projects.draft} | На проверке: {stats.projects.submitted} | Одобрен:{' '}
               {stats.projects.approved} | Отклонен: {stats.projects.rejected}
             </p>
@@ -61,21 +61,21 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Инвесторы</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Инвесторы</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.users.investor}</div>
-            <p className="mt-2 text-sm text-gray-500">всего инвесторов</p>
+            <p className="mt-2 text-sm text-slate-500">всего инвесторов</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Заявки</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Заявки</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.applications.total}</div>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-slate-500">
               Ожидают: {stats.applications.pending} | Одобрено: {stats.applications.approved} |
               Отклонено: {stats.applications.rejected}
             </p>
@@ -84,11 +84,11 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Инвайты</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Инвайты</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.invites.total}</div>
-            <p className="mt-2 text-sm text-gray-500">использовано: {stats.invites.used}</p>
+            <p className="mt-2 text-sm text-slate-500">использовано: {stats.invites.used}</p>
           </CardContent>
         </Card>
       </section>
@@ -146,7 +146,7 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
         </CardHeader>
         <CardContent>
           {stats.recent_activity.length === 0 ? (
-            <p className="text-sm text-gray-500">Нет последних событий</p>
+            <p className="text-sm text-slate-500">Нет последних событий</p>
           ) : (
             <div className="space-y-3">
               {stats.recent_activity.map((item) => (
@@ -154,9 +154,9 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
                   key={`${item.project_id}-${item.changed_at}`}
                   className="flex flex-wrap items-center gap-2 text-sm"
                 >
-                  <span className="text-gray-500">{formatDate(item.changed_at)}</span>
+                  <span className="text-slate-500">{formatDate(item.changed_at)}</span>
                   <span>{item.project_name ?? item.project_id}</span>
-                  <span className="text-gray-400">-&gt;</span>
+                  <span className="text-slate-400">-&gt;</span>
                   <Badge
                     variant="outline"
                     className={STATUS_BADGE_CLASSES[item.status] ?? STATUS_BADGE_CLASSES.draft}

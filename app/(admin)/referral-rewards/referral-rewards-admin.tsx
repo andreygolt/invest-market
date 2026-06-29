@@ -184,7 +184,7 @@ export function ReferralRewardsAdmin({ initialRewards }: ReferralRewardsAdminPro
               })}
               {rewards.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="py-10 text-center text-gray-500">
+                  <TableCell colSpan={6} className="py-10 text-center text-slate-500">
                     Вознаграждений нет
                   </TableCell>
                 </TableRow>

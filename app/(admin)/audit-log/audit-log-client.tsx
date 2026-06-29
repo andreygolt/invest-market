@@ -94,46 +94,46 @@ export default function AuditLogClient() {
             </option>
           ))}
         </select>
-        <span className="text-sm text-gray-500">Всего: {total}</span>
+        <span className="text-sm text-slate-500">Всего: {total}</span>
       </div>
 
       {error && <div className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-800">{error}</div>}
 
       <div className="overflow-x-auto rounded-lg border">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-slate-50">
             <tr>
-              <th className="px-4 py-2 text-left font-medium text-gray-600">Дата</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-600">Действие</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-600">Объект</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-600">Исполнитель</th>
+              <th className="px-4 py-2 text-left font-medium text-slate-600">Дата</th>
+              <th className="px-4 py-2 text-left font-medium text-slate-600">Действие</th>
+              <th className="px-4 py-2 text-left font-medium text-slate-600">Объект</th>
+              <th className="px-4 py-2 text-left font-medium text-slate-600">Исполнитель</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {loading ? (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-gray-400">
+                <td colSpan={4} className="px-4 py-6 text-center text-slate-400">
                   Загрузка...
                 </td>
               </tr>
             ) : rows.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-gray-400">
+                <td colSpan={4} className="px-4 py-6 text-center text-slate-400">
                   Записей нет
                 </td>
               </tr>
             ) : (
               rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50">
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-500">
+                <tr key={row.id} className="hover:bg-slate-50">
+                  <td className="whitespace-nowrap px-4 py-2 text-slate-500">
                     {new Date(row.created_at).toLocaleString('ru-RU')}
                   </td>
                   <td className="px-4 py-2 font-medium">{ACTION_LABELS[row.action]}</td>
-                  <td className="px-4 py-2 text-gray-600">
+                  <td className="px-4 py-2 text-slate-600">
                     {row.entity_type}
                     {row.entity_id ? ` #${row.entity_id.slice(0, 8)}` : ''}
                   </td>
-                  <td className="px-4 py-2 text-gray-600">
+                  <td className="px-4 py-2 text-slate-600">
                     {row.actor_email ?? row.actor_id.slice(0, 8)}
                   </td>
                 </tr>
@@ -156,7 +156,7 @@ export default function AuditLogClient() {
           >
             Назад
           </Button>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-slate-600">
             Страница {page} из {totalPages}
           </span>
           <Button

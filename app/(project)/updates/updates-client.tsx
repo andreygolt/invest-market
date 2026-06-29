@@ -79,19 +79,19 @@ export default function UpdatesClient() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] px-4 py-10">
+    <main className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto max-w-3xl space-y-6">
-        <h1 className="text-2xl font-bold text-white">Обновления проекта</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Обновления проекта</h1>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">Опубликовать обновление</h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Опубликовать обновление</h2>
           <form onSubmit={publishUpdate} className="space-y-4">
             <Input
               value={title}
               maxLength={200}
               onChange={(event) => setTitle(event.target.value)}
               placeholder="Краткий заголовок обновления"
-              className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+              className="border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:border-slate-500"
             />
             <Textarea
               value={body}
@@ -99,10 +99,10 @@ export default function UpdatesClient() {
               rows={6}
               onChange={(event) => setBody(event.target.value)}
               placeholder="Подробное описание..."
-              className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+              className="border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:border-slate-500"
             />
             {error && <p className="text-sm text-red-400">{error}</p>}
-            <Button type="submit" disabled={submitting} className="bg-white text-black hover:bg-slate-200">
+            <Button type="submit" disabled={submitting} className="bg-slate-900 text-white hover:bg-slate-700">
               {submitting ? 'Публикуем...' : 'Опубликовать'}
             </Button>
           </form>
@@ -111,16 +111,16 @@ export default function UpdatesClient() {
         {loading ? (
           <p className="text-sm text-slate-500">Загрузка...</p>
         ) : updates.length === 0 ? (
-          <div className="rounded-xl border border-slate-800 bg-slate-900 py-8 text-center text-sm text-slate-600">
+          <div className="rounded-xl border border-slate-200 bg-white py-8 text-center text-sm text-slate-600">
             Обновлений ещё нет. Опубликуйте первое!
           </div>
         ) : (
           <div className="space-y-4">
             {updates.map((update) => (
-              <div key={update.id} className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+              <div key={update.id} className="rounded-xl border border-slate-200 bg-white p-5">
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{update.title}</h3>
+                    <h3 className="text-lg font-semibold text-slate-900">{update.title}</h3>
                     <p className="mt-1 text-xs text-slate-600">
                       {new Date(update.created_at).toLocaleString()}
                     </p>
@@ -129,16 +129,16 @@ export default function UpdatesClient() {
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="border-red-800 text-red-400 hover:bg-red-900/20 shrink-0"
+                    className="border-red-200 text-red-600 hover:bg-red-50 shrink-0"
                     onClick={() => void deleteUpdate(update.id)}
                   >
                     Удалить
                   </Button>
                 </div>
-                <p className="whitespace-pre-wrap text-sm text-slate-300">{update.body}</p>
+                <p className="whitespace-pre-wrap text-sm text-slate-700">{update.body}</p>
                 {update.ai_summary !== null ? (
                   <p className="mt-3 text-sm text-slate-500">
-                    <span className="font-medium text-slate-400">AI-резюме:</span> {update.ai_summary}
+                    <span className="font-medium text-slate-600">AI-резюме:</span> {update.ai_summary}
                   </p>
                 ) : (
                   <p className="mt-3 text-sm text-slate-600">Резюме генерируется...</p>

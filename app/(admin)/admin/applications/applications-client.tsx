@@ -37,7 +37,7 @@ const STATUS_BADGES: Record<AdminApplicationItem['status'], string> = {
   pending: 'border-yellow-200 bg-yellow-100 text-yellow-900',
   approved: 'border-green-200 bg-green-100 text-green-900',
   rejected: 'border-red-200 bg-red-100 text-red-900',
-  cancelled: 'border-gray-200 bg-gray-100 text-gray-900',
+  cancelled: 'border-slate-200 bg-slate-100 text-slate-900',
 };
 
 function formatAmount(amount: number | null) {
@@ -148,13 +148,13 @@ export function ApplicationsClient({ applications }: ApplicationsClientProps) {
         />
       </div>
 
-      <div className="mb-4 text-sm text-gray-600">
+      <div className="mb-4 text-sm text-slate-600">
         Всего: {counters.total} | Ожидают: {counters.pending} | Одобрено: {counters.approved} |{' '}
         Отклонено: {counters.rejected} | Отменено: {counters.cancelled}
       </div>
 
       {filteredApplications.length === 0 ? (
-        <div className="rounded-md border py-12 text-center text-sm text-gray-500">
+        <div className="rounded-md border py-12 text-center text-sm text-slate-500">
           Нет заявок по выбранным фильтрам
         </div>
       ) : (
@@ -203,7 +203,7 @@ export function ApplicationsClient({ applications }: ApplicationsClientProps) {
                       </Button>
                     </div>
                   ) : (
-                    <span className="text-sm text-gray-500">-</span>
+                    <span className="text-sm text-slate-500">-</span>
                   )}
                 </TableCell>
               </TableRow>

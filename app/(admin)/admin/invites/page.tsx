@@ -47,7 +47,7 @@ function getInviteStatus(invite: Pick<InviteRow, 'used_by' | 'expires_at'>) {
 
   return {
     label: 'Активен',
-    className: 'border-gray-200 bg-gray-50 text-gray-700',
+    className: 'border-slate-200 bg-slate-50 text-slate-700',
   };
 }
 
@@ -141,7 +141,7 @@ export default async function AdminInvitesPage() {
 
               {(invites ?? []).length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="py-10 text-center text-gray-500">
+                  <TableCell colSpan={6} className="py-10 text-center text-slate-500">
                     Инвайтов нет
                   </TableCell>
                 </TableRow>

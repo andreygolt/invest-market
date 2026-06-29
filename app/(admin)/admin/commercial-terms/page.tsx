@@ -54,7 +54,7 @@ export default async function CommercialTermsPage() {
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Коммерческие условия</h1>
-        <p className="mt-1 text-sm text-gray-500">Success fee и фиксированные условия по проектам</p>
+        <p className="mt-1 text-sm text-slate-500">Success fee и фиксированные условия по проектам</p>
       </div>
 
       <Card>
@@ -80,7 +80,7 @@ export default async function CommercialTermsPage() {
                   <TableCell>
                     {project.terms ? formatRub(project.terms.fixed_fee) : 'Не установлено'}
                   </TableCell>
-                  <TableCell className="max-w-xs text-gray-600">
+                  <TableCell className="max-w-xs text-slate-600">
                     {project.terms?.notes ?? 'Не установлено'}
                   </TableCell>
                   <TableCell>
@@ -94,7 +94,7 @@ export default async function CommercialTermsPage() {
               ))}
               {projects.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="py-10 text-center text-gray-500">
+                  <TableCell colSpan={5} className="py-10 text-center text-slate-500">
                     Нет одобренных проектов
                   </TableCell>
                 </TableRow>

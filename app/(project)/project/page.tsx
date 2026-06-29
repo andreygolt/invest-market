@@ -49,22 +49,22 @@ export default async function ProjectDashboardPage() {
 
   if (!project) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#0a0a0a] px-4">
-        <div className="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-8">
-          <h1 className="mb-1 text-2xl font-bold text-white">Создать проект</h1>
+      <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+        <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8">
+          <h1 className="mb-1 text-2xl font-bold text-slate-900">Создать проект</h1>
           <p className="mb-6 text-sm text-slate-500">Введите название проекта, чтобы открыть кабинет.</p>
           <form action={createProject} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm text-slate-400">Название проекта</Label>
+              <Label htmlFor="name" className="text-sm text-slate-600">Название проекта</Label>
               <Input
                 id="name"
                 name="name"
                 required
                 placeholder="Например: FinTech Startup"
-                className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-600 focus:border-slate-500"
+                className="border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 focus:border-slate-500"
               />
             </div>
-            <Button type="submit" className="w-full bg-white text-black hover:bg-slate-200">
+            <Button type="submit" className="w-full bg-slate-900 text-white hover:bg-slate-700">
               Создать
             </Button>
           </form>

@@ -38,7 +38,7 @@ const PAGE_SIZE = 20;
 const INVITE_ROLES: InviteRole[] = ['investor', 'project', 'admin', 'moderator', 'manager'];
 
 const STATUS_BADGE_CLASSES: Record<InviteStatus, string> = {
-  unused: 'border-gray-200 bg-gray-50 text-gray-700',
+  unused: 'border-slate-200 bg-slate-50 text-slate-700',
   used: 'border-green-200 bg-green-50 text-green-800',
   expired: 'border-red-200 bg-red-50 text-red-800',
 };
@@ -245,7 +245,7 @@ export function InvitesClient({ initialInvites }: InvitesClientProps) {
               })}
               {invites.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={8} className="py-10 text-center text-gray-500">
+                  <TableCell colSpan={8} className="py-10 text-center text-slate-500">
                     Инвайтов нет
                   </TableCell>
                 </TableRow>

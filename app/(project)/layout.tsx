@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { MobileNav } from '@/components/mobile-nav';
+import { NavLink } from '@/components/nav-link';
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { getUnreadCount } from '@/lib/notifications/get-unread-count';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function ProjectLayout({ children }: { children: React.ReactNode }) {
@@ -37,15 +38,28 @@ export default async function ProjectLayout({ children }: { children: React.Reac
 
   return (
     <>
-      <nav className="border-b bg-white">
+      <nav className="bg-white border-b border-slate-200">
         <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-3 text-sm">
-          {navItems.filter(item => item.show).map(item => (
-            <Link key={item.href} href={item.href} className="font-medium text-gray-900 hover:underline">
-              {item.label}
-            </Link>
-          ))}
-          <div className="ml-auto">
+          <div className="hidden md:flex items-center gap-4 flex-1">
+            {navItems.filter(item => item.show).map(item => (
+              <NavLink
+                key={item.href}
+                href={item.href}
+                exact
+                className="font-medium text-slate-600 hover:text-slate-900 transition-colors"
+                activeClassName="!text-slate-900 underline underline-offset-4"
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
+          <div className="ml-auto flex items-center gap-2">
             <NotificationBell initialUnread={unread} userId={user.id} />
+            <MobileNav
+              items={navItems
+                .filter((item) => item.show)
+                .map((item) => ({ href: item.href, label: item.label, exact: true as const }))}
+            />
           </div>
         </div>
       </nav>

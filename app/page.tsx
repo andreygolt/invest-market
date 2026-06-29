@@ -88,6 +88,12 @@ export default async function HomePage() {
             >
               Получить приглашение
             </a>
+            <Link
+              href="/apply"
+              className="border border-white/30 text-white hover:bg-white/10 px-6 py-3 rounded-lg text-sm font-medium"
+            >
+              Предложить проект
+            </Link>
           </div>
           <p className="mt-3 text-xs text-slate-600">Нет приглашения? Оставьте запрос — мы рассмотрим вашу кандидатуру</p>
         </div>

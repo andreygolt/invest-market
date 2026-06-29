@@ -94,7 +94,7 @@ function Section2({ value, onChange }: { value: Partial<QS2Answers>; onChange: (
         {founders.map((f, i) => (
           <div key={i} className="border rounded p-4 mb-3 space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-500">Основатель {i + 1}</span>
+              <span className="text-sm font-medium text-slate-500">Основатель {i + 1}</span>
               {founders.length > 1 && (
                 <button type="button" onClick={() => removeFounder(i)}
                   className="text-sm text-red-500 hover:underline">Удалить</button>
@@ -276,15 +276,15 @@ export default function QuestionnairePage() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><p className="text-gray-500">Загрузка...</p></div>;
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-slate-500">Загрузка...</p></div>;
   }
 
   if (!project) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <main className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="w-full max-w-md p-8 bg-white rounded-lg shadow">
           <h1 className="text-2xl font-semibold mb-2">Добро пожаловать</h1>
-          <p className="text-gray-500 text-sm mb-6">Введите название вашего проекта, чтобы начать анкету.</p>
+          <p className="text-slate-500 text-sm mb-6">Введите название вашего проекта, чтобы начать анкету.</p>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">Название проекта *</label>
@@ -293,7 +293,7 @@ export default function QuestionnairePage() {
             </div>
             {error && <p className="text-red-600 text-sm">{error}</p>}
             <button onClick={createProject} disabled={saving || !projectName.trim()}
-              className="w-full bg-black text-white py-2 rounded text-sm font-medium disabled:opacity-50">
+              className="w-full bg-slate-900 text-white py-2 rounded text-sm font-medium disabled:opacity-50">
               {saving ? 'Создаём...' : 'Начать'}
             </button>
           </div>
@@ -304,29 +304,29 @@ export default function QuestionnairePage() {
 
   if (done) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <main className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="w-full max-w-md p-8 bg-white rounded-lg shadow text-center">
           <div className="text-4xl mb-4">✓</div>
           <h1 className="text-2xl font-semibold mb-2">Секции 1-4 заполнены</h1>
-          <p className="text-gray-500 text-sm">Продолжите заполнение анкеты в следующем этапе (секции 5-8) и загрузите документы.</p>
+          <p className="text-slate-500 text-sm">Продолжите заполнение анкеты в следующем этапе (секции 5-8) и загрузите документы.</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
+    <main className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <h1 className="text-xl font-semibold">{project.name}</h1>
-          <p className="text-sm text-gray-500 mt-1">Анкета проекта — шаг {step + 1} из {TOTAL}</p>
+          <p className="text-sm text-slate-500 mt-1">Анкета проекта — шаг {step + 1} из {TOTAL}</p>
         </div>
 
         <div className="flex gap-2 mb-8">
           {STEPS.map((label, i) => (
             <div key={i} className="flex-1">
-              <div className={`h-1 rounded-full mb-1 ${i <= step ? 'bg-black' : 'bg-gray-200'}`} />
-              <p className={`text-xs ${i === step ? 'font-medium text-black' : 'text-gray-400'}`}>{label}</p>
+              <div className={`h-1 rounded-full mb-1 ${i <= step ? 'bg-slate-900' : 'bg-slate-200'}`} />
+              <p className={`text-xs ${i === step ? 'font-medium text-slate-900' : 'text-slate-400'}`}>{label}</p>
             </div>
           ))}
         </div>
@@ -367,7 +367,7 @@ export default function QuestionnairePage() {
               Назад
             </button>
             <button onClick={saveAndNext} disabled={saving}
-              className="px-6 py-2 text-sm bg-black text-white rounded disabled:opacity-50">
+              className="px-6 py-2 text-sm bg-slate-900 text-white rounded disabled:opacity-50">
               {saving ? 'Сохраняем...' : step === TOTAL - 1 ? 'Завершить секции 1-4' : 'Сохранить и продолжить'}
             </button>
           </div>

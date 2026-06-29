@@ -95,16 +95,16 @@ export default function SettingsClient({ initialSettings }: Props) {
         <div className="space-y-5">
           {SETTING_META.map(({ key, label, hint, type }) => (
             <div key={key}>
-              <label htmlFor={key} className="block text-sm font-medium text-gray-700">
+              <label htmlFor={key} className="block text-sm font-medium text-slate-700">
                 {label}
               </label>
-              <p className="mt-0.5 text-xs text-gray-500">{hint}</p>
+              <p className="mt-0.5 text-xs text-slate-500">{hint}</p>
               <input
                 id={key}
                 type={type}
                 value={values[key]}
                 onChange={(event) => handleChange(key, event.target.value)}
-                className="mt-1.5 w-full rounded-md border border-gray-200 px-3 py-2 text-sm outline-none focus:border-gray-400"
+                className="mt-1.5 w-full rounded-md border border-slate-200 px-3 py-2 text-sm outline-none focus:border-slate-400"
                 min={type === 'number' ? 0 : undefined}
               />
             </div>
@@ -123,7 +123,7 @@ export default function SettingsClient({ initialSettings }: Props) {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="rounded-md bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-md bg-slate-900 px-5 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
         >
           {saving ? 'Сохранение...' : 'Сохранить настройки'}
         </button>

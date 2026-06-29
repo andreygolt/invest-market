@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NavLink } from '@/components/nav-link';
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { getCurrentUserId, getUnreadCount } from '@/lib/notifications/get-unread-count';
 
@@ -6,62 +6,67 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const [unread, userId] = await Promise.all([getUnreadCount(), getCurrentUserId()]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-3 flex items-center gap-6">
-          <span className="font-semibold">Invest Market - Панель модератора</span>
-          <nav className="flex gap-4 text-sm text-gray-500">
-            <Link href="/admin/search" className="hover:text-foreground">
-              Поиск
-            </Link>
-            <Link href="/admin/dashboard" className="hover:text-foreground">
-              Dashboard
-            </Link>
-            <Link href="/" className="hover:text-foreground">
-              Дашборд
-            </Link>
-            <Link href="/moderation" className="hover:text-foreground">
-              Модерация
-            </Link>
-            <Link href="/admin/referral-rewards" className="hover:text-foreground">
-              Реферальные вознаграждения
-            </Link>
-            <Link href="/admin/notifications" className="hover:text-foreground">
-              Объявления
-            </Link>
-            <Link href="/admin/export" className="hover:text-foreground">
-              Экспорт
-            </Link>
-            <Link href="/admin/audit-log" className="hover:text-foreground">
-              Журнал
-            </Link>
-            <Link href="/admin/funnel" className="hover:text-foreground">
-              Воронка
-            </Link>
-            <Link href="/admin/investors-activity" className="hover:text-foreground">
-              Инвесторы
-            </Link>
-            <Link href="/admin/analytics" className="hover:text-foreground">
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white border-b border-slate-200">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex items-center gap-4 py-1">
+            <span className="text-slate-900 font-semibold shrink-0">Invest Market — Администратор</span>
+            <nav className="flex gap-3 text-sm flex-wrap">
+              <NavLink href="/admin/dashboard" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Dashboard
+              </NavLink>
+              <NavLink href="/moderation" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Модерация
+              </NavLink>
+              <NavLink href="/admin/applications" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Заявки
+              </NavLink>
+              <NavLink href="/users" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Пользователи
+              </NavLink>
+              <NavLink href="/admin/invites" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Инвайты
+              </NavLink>
+              <NavLink href="/settings" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Настройки
+              </NavLink>
+              <NavLink href="/profile" className="text-slate-700 hover:text-slate-900 font-medium transition-colors" activeClassName="text-slate-900 font-semibold border-b-2 border-slate-900 pb-0.5">
+                Профиль
+              </NavLink>
+            </nav>
+            <div className="ml-auto shrink-0">
+              {userId && <NotificationBell initialUnread={unread} userId={userId} />}
+            </div>
+          </div>
+          <div className="flex gap-3 text-xs pb-1 flex-wrap border-t border-slate-100 pt-1">
+            <span className="text-slate-400 shrink-0">Отчёты:</span>
+            <NavLink href="/admin/analytics" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
               Аналитика
-            </Link>
-            <Link href="/admin/invites" className="hover:text-foreground">
-              Инвайты
-            </Link>
-            <Link href="/users" className="hover:text-foreground">
-              Пользователи
-            </Link>
-            <Link href="/admin/applications" className="hover:text-foreground">
-              Заявки
-            </Link>
-            <Link href="/settings" className="hover:text-foreground">
-              Настройки
-            </Link>
-            <Link href="/profile" className="hover:text-foreground">
-              Профиль
-            </Link>
-          </nav>
-          <div className="ml-auto">
-            {userId && <NotificationBell initialUnread={unread} userId={userId} />}
+            </NavLink>
+            <NavLink href="/admin/funnel" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Воронка
+            </NavLink>
+            <NavLink href="/admin/investors-activity" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Инвесторы
+            </NavLink>
+            <NavLink href="/admin/export" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Экспорт
+            </NavLink>
+            <NavLink href="/admin/audit-log" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Журнал
+            </NavLink>
+            <NavLink href="/admin/notifications" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Объявления
+            </NavLink>
+            <NavLink href="/admin/referral-rewards" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Реферальные вознаграждения
+            </NavLink>
+            <NavLink href="/admin/search" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Поиск
+            </NavLink>
+            <NavLink href="/admin/commercial-terms" exact className="text-slate-500 hover:text-slate-800 transition-colors" activeClassName="text-slate-800 font-medium">
+              Коммерческие условия
+            </NavLink>
           </div>
         </div>
       </header>

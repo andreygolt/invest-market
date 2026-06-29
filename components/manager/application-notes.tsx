@@ -63,13 +63,13 @@ export function ApplicationNotes({
     <div className="space-y-4">
       <h2 className="text-sm font-semibold">Внутренние заметки</h2>
 
-      {notes.length === 0 && <p className="text-sm text-gray-400">Заметок пока нет.</p>}
+      {notes.length === 0 && <p className="text-sm text-slate-400">Заметок пока нет.</p>}
 
       <ul className="space-y-3">
         {notes.map((note) => (
-          <li key={note.id} className="rounded-md border bg-gray-50 p-3 text-sm">
+          <li key={note.id} className="rounded-md border bg-slate-50 p-3 text-sm">
             <p className="whitespace-pre-wrap">{note.content}</p>
-            <div className="mt-1.5 flex items-center justify-between text-xs text-gray-400">
+            <div className="mt-1.5 flex items-center justify-between text-xs text-slate-400">
               <span>
                 {note.author_email ?? '-'} · {new Date(note.created_at).toLocaleString('ru-RU')}
               </span>
@@ -93,11 +93,11 @@ export function ApplicationNotes({
           placeholder="Добавить заметку..."
           rows={3}
           maxLength={2000}
-          className="w-full resize-none rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+          className="w-full resize-none rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-400"
         />
         {error && <p className="text-xs text-red-500">{error}</p>}
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-400">{content.length}/2000</span>
+          <span className="text-xs text-slate-400">{content.length}/2000</span>
           <button
             onClick={handleAdd}
             disabled={submitting || !content.trim()}

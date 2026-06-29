@@ -20,14 +20,14 @@ type AdminDashboardClientProps = {
 };
 
 const STATUS_BADGE_CLASSES: Record<string, string> = {
-  draft: 'border-gray-200 bg-gray-50 text-gray-700',
+  draft: 'border-slate-200 bg-slate-50 text-slate-700',
   submitted: 'border-blue-200 bg-blue-50 text-blue-800',
   approved: 'border-green-200 bg-green-50 text-green-800',
   rejected: 'border-red-200 bg-red-50 text-red-800',
 };
 
 const STATUS_BAR_CLASSES: Record<string, string> = {
-  draft: 'bg-gray-400',
+  draft: 'bg-slate-400',
   submitted: 'bg-blue-500',
   approved: 'bg-green-500',
   rejected: 'bg-red-500',
@@ -66,17 +66,17 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Всего проектов</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Всего проектов</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.projects.total}</div>
-            <p className="mt-1 text-sm text-gray-500">На модерации: {stats.projects.submitted}</p>
+            <p className="mt-1 text-sm text-slate-500">На модерации: {stats.projects.submitted}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Одобрено / Отклонено</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Одобрено / Отклонено</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
@@ -87,43 +87,43 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Всего пользователей</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Всего пользователей</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.users.total}</div>
-            <p className="mt-1 text-sm text-gray-500">Инвесторов: {stats.users.investor}</p>
+            <p className="mt-1 text-sm text-slate-500">Инвесторов: {stats.users.investor}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Заявки инвесторов</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Заявки инвесторов</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.applications.total}</div>
-            <p className="mt-1 text-sm text-gray-500">Ожидают: {stats.applications.pending}</p>
+            <p className="mt-1 text-sm text-slate-500">Ожидают: {stats.applications.pending}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Зафиксировано инвестиций</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Зафиксировано инвестиций</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.portfolio.total_records}</div>
-            <p className="mt-1 text-sm text-gray-500">записей</p>
+            <p className="mt-1 text-sm text-slate-500">записей</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Инвайты</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500">Инвайты</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
               {stats.invites.used} / {stats.invites.total}
             </div>
-            <p className="mt-1 text-sm text-gray-500">использовано</p>
+            <p className="mt-1 text-sm text-slate-500">использовано</p>
           </CardContent>
         </Card>
       </section>
@@ -139,9 +139,9 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
               <div key={item.key} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium">{item.label}</span>
-                  <span className="text-gray-500">{item.value}</span>
+                  <span className="text-slate-500">{item.value}</span>
                 </div>
-                <div className="h-2 overflow-hidden rounded bg-gray-100">
+                <div className="h-2 overflow-hidden rounded bg-slate-100">
                   <div
                     className={`h-full ${STATUS_BAR_CLASSES[item.key]}`}
                     style={{ width: `${percent}%` }}
@@ -170,7 +170,7 @@ export function AdminDashboardClient({ stats }: AdminDashboardClientProps) {
             <TableBody>
               {stats.recent_activity.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="text-center text-gray-500">
+                  <TableCell colSpan={4} className="text-center text-slate-500">
                     Нет записей
                   </TableCell>
                 </TableRow>

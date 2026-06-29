@@ -96,7 +96,7 @@ export default function BroadcastFormClient() {
           required
           placeholder="Краткий заголовок объявления"
         />
-        <div className="text-right text-xs text-gray-400">{title.length}/120</div>
+        <div className="text-right text-xs text-slate-400">{title.length}/120</div>
       </div>
 
       <div className="space-y-1">
@@ -109,12 +109,12 @@ export default function BroadcastFormClient() {
           rows={4}
           placeholder="Текст объявления"
         />
-        <div className="text-right text-xs text-gray-400">{body.length}/1000</div>
+        <div className="text-right text-xs text-slate-400">{body.length}/1000</div>
       </div>
 
       <div className="space-y-1">
         <Label>
-          Ссылка <span className="text-gray-400">(необязательно)</span>
+          Ссылка <span className="text-slate-400">(необязательно)</span>
         </Label>
         <Input
           type="text"

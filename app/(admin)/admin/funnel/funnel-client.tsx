@@ -13,7 +13,7 @@ function ConversionBadge({ rate }: { rate: number }) {
       ? 'bg-green-100 text-green-800'
       : rate >= 10
         ? 'bg-yellow-100 text-yellow-800'
-        : 'bg-gray-100 text-gray-600';
+        : 'bg-slate-100 text-slate-600';
 
   return (
     <span className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${color}`}>
@@ -47,7 +47,7 @@ export default function FunnelClient() {
   }, []);
 
   if (loading) {
-    return <div className="py-12 text-center text-gray-400">Загрузка...</div>;
+    return <div className="py-12 text-center text-slate-400">Загрузка...</div>;
   }
 
   if (error) {
@@ -56,7 +56,7 @@ export default function FunnelClient() {
 
   if (rows.length === 0) {
     return (
-      <div className="py-12 text-center text-gray-400">
+      <div className="py-12 text-center text-slate-400">
         Нет одобренных проектов с данными о просмотрах
       </div>
     );
@@ -65,25 +65,25 @@ export default function FunnelClient() {
   return (
     <div className="overflow-x-auto rounded-lg border">
       <table className="w-full text-sm">
-        <thead className="bg-gray-50">
+        <thead className="bg-slate-50">
           <tr>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">Проект</th>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">Категория</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Просмотры</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Уник. зрители</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Избранное</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Заявки</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Портфель</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Конверсия</th>
+            <th className="px-4 py-3 text-left font-medium text-slate-600">Проект</th>
+            <th className="px-4 py-3 text-left font-medium text-slate-600">Категория</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Просмотры</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Уник. зрители</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Избранное</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Заявки</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Портфель</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Конверсия</th>
           </tr>
         </thead>
         <tbody className="divide-y">
           {rows.map((row) => (
-            <tr key={row.project_id} className="hover:bg-gray-50">
+            <tr key={row.project_id} className="hover:bg-slate-50">
               <td className="max-w-[200px] truncate px-4 py-3 font-medium">
                 {row.project_name}
               </td>
-              <td className="px-4 py-3 text-gray-500">{row.category}</td>
+              <td className="px-4 py-3 text-slate-500">{row.category}</td>
               <td className="px-4 py-3 text-right">{row.views_count}</td>
               <td className="px-4 py-3 text-right">{row.unique_viewers}</td>
               <td className="px-4 py-3 text-right">{row.favorites_count}</td>

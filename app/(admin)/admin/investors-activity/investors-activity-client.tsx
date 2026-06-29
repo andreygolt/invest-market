@@ -41,7 +41,7 @@ export default function InvestorsActivityClient() {
   }, []);
 
   if (loading) {
-    return <div className="py-12 text-center text-gray-400">Загрузка...</div>;
+    return <div className="py-12 text-center text-slate-400">Загрузка...</div>;
   }
 
   if (error) {
@@ -50,7 +50,7 @@ export default function InvestorsActivityClient() {
 
   if (rows.length === 0) {
     return (
-      <div className="py-12 text-center text-gray-400">
+      <div className="py-12 text-center text-slate-400">
         Нет зарегистрированных инвесторов
       </div>
     );
@@ -59,31 +59,31 @@ export default function InvestorsActivityClient() {
   return (
     <div className="overflow-x-auto rounded-lg border">
       <table className="w-full text-sm">
-        <thead className="bg-gray-50">
+        <thead className="bg-slate-50">
           <tr>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">Инвестор</th>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">Email</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Просмотры</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Избранное</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Заявки</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">Портфель</th>
-            <th className="px-4 py-3 text-right font-medium text-gray-600">
+            <th className="px-4 py-3 text-left font-medium text-slate-600">Инвестор</th>
+            <th className="px-4 py-3 text-left font-medium text-slate-600">Email</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Просмотры</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Избранное</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Заявки</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">Портфель</th>
+            <th className="px-4 py-3 text-right font-medium text-slate-600">
               Последняя активность
             </th>
           </tr>
         </thead>
         <tbody className="divide-y">
           {rows.map((row) => (
-            <tr key={row.investor_id} className="hover:bg-gray-50">
+            <tr key={row.investor_id} className="hover:bg-slate-50">
               <td className="max-w-[180px] truncate px-4 py-3 font-medium">
                 {row.investor_name || '—'}
               </td>
-              <td className="max-w-[200px] truncate px-4 py-3 text-gray-500">{row.email}</td>
+              <td className="max-w-[200px] truncate px-4 py-3 text-slate-500">{row.email}</td>
               <td className="px-4 py-3 text-right">{row.views_count}</td>
               <td className="px-4 py-3 text-right">{row.favorites_count}</td>
               <td className="px-4 py-3 text-right">{row.applications_count}</td>
               <td className="px-4 py-3 text-right">{row.portfolio_count}</td>
-              <td className="px-4 py-3 text-right text-gray-500">
+              <td className="px-4 py-3 text-right text-slate-500">
                 {formatDate(row.last_active_at)}
               </td>
             </tr>

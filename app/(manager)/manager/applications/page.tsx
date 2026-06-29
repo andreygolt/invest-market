@@ -84,7 +84,7 @@ export default async function ManagerApplicationsPage({ searchParams }: PageProp
         <div className="flex flex-wrap gap-2">
           <Link
             href="/manager/applications"
-            className="rounded border px-3 py-1 text-sm hover:bg-gray-50"
+            className="rounded border px-3 py-1 text-sm hover:bg-slate-50"
           >
             Все
           </Link>
@@ -92,14 +92,14 @@ export default async function ManagerApplicationsPage({ searchParams }: PageProp
             <Link
               key={item}
               href={`/manager/applications?status=${item}`}
-              className="rounded border px-3 py-1 text-sm hover:bg-gray-50"
+              className="rounded border px-3 py-1 text-sm hover:bg-slate-50"
             >
               {item}
             </Link>
           ))}
           <a
             href={exportHref}
-            className="rounded border px-3 py-1 text-sm hover:bg-gray-50"
+            className="rounded border px-3 py-1 text-sm hover:bg-slate-50"
             download
           >
             Экспорт CSV
@@ -108,11 +108,11 @@ export default async function ManagerApplicationsPage({ searchParams }: PageProp
       </div>
 
       {applications.length === 0 ? (
-        <p className="text-gray-500">Заявок нет.</p>
+        <p className="text-slate-500">Заявок нет.</p>
       ) : (
         <div className="overflow-x-auto rounded-md border bg-white">
           <table className="w-full text-sm">
-            <thead className="border-b bg-gray-50">
+            <thead className="border-b bg-slate-50">
               <tr>
                 <th className="px-4 py-2 text-left font-medium">ID</th>
                 <th className="px-4 py-2 text-left font-medium">Проект</th>

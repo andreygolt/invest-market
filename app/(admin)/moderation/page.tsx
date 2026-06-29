@@ -13,7 +13,7 @@ export default async function ModerationPage() {
   const { data: projects } = await supabase
     .from('projects')
     .select('id, name, status, created_at, updated_at')
-    .in('status', ['submitted', 'under_review'])
+    .in('status', ['draft', 'submitted', 'under_review'])
     .order('updated_at', { ascending: false });
 
   const items = (projects ?? []) as Pick<
@@ -25,12 +25,12 @@ export default async function ModerationPage() {
     <div className="container mx-auto py-8 max-w-4xl">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Модерация проектов</h1>
-        <p className="text-gray-500 mt-1">Проекты, ожидающие проверки: {items.length}</p>
+        <p className="text-slate-500 mt-1">Проекты, ожидающие проверки: {items.length}</p>
       </div>
 
       {items.length === 0 ? (
         <Card>
-          <CardContent className="py-12 text-center text-gray-500">
+          <CardContent className="py-12 text-center text-slate-500">
             Нет проектов на модерации
           </CardContent>
         </Card>
@@ -45,7 +45,7 @@ export default async function ModerationPage() {
                     {project.status}
                   </Badge>
                 </div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-500">
                   Обновлён: {new Date(project.updated_at).toLocaleDateString('ru-RU')}
                 </p>
               </CardHeader>

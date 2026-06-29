@@ -17,14 +17,16 @@ const STATUS_LABELS: Record<ApplicationStatus, string> = {
 
 const STATUS_CLASSES: Record<ApplicationStatus, string> = {
   pending:
-    'rounded-md bg-yellow-500/10 border border-yellow-500/20 px-2 py-0.5 text-xs text-yellow-400',
+    'rounded-md bg-yellow-50 border border-yellow-200 px-2 py-0.5 text-xs text-yellow-700',
   reviewing:
-    'rounded-md bg-yellow-500/10 border border-yellow-500/20 px-2 py-0.5 text-xs text-yellow-400',
+    'rounded-md bg-yellow-50 border border-yellow-200 px-2 py-0.5 text-xs text-yellow-700',
   approved:
-    'rounded-md bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-xs text-emerald-400',
-  rejected: 'rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-xs text-red-400',
-  cancelled: 'rounded-md bg-slate-800 border border-slate-700 px-2 py-0.5 text-xs text-slate-500',
-  withdrawn: 'rounded-md bg-slate-800 border border-slate-700 px-2 py-0.5 text-xs text-slate-500',
+    'rounded-md bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-xs text-emerald-700',
+  rejected: 'rounded-md bg-red-50 border border-red-200 px-2 py-0.5 text-xs text-red-600',
+  cancelled:
+    'rounded-md bg-slate-100 border border-slate-200 px-2 py-0.5 text-xs text-slate-500',
+  withdrawn:
+    'rounded-md bg-slate-100 border border-slate-200 px-2 py-0.5 text-xs text-slate-500',
 };
 
 export function ApplicationsClient() {
@@ -66,32 +68,32 @@ export function ApplicationsClient() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0a]">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50">
         <p className="text-slate-500">Загрузка...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-slate-50">
       <div className="container mx-auto max-w-3xl space-y-4 px-4 py-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-white">Мои заявки</h1>
-          <Button asChild variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+          <h1 className="text-2xl font-semibold text-slate-900">Мои заявки</h1>
+          <Button asChild variant="ghost" size="sm" className="text-slate-500 hover:text-slate-900">
             <Link href="/catalog">← Каталог</Link>
           </Button>
         </div>
 
-        <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-400">
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
           <strong className="font-semibold">Важно:</strong> Заявки носят ознакомительный характер.
           Сделки заключаются вне платформы. Доходность не гарантируется.
         </div>
 
         {applications.length === 0 ? (
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-12 text-center">
-            <p className="text-slate-400">
+          <div className="rounded-xl border border-slate-200 bg-white p-12 text-center">
+            <p className="text-slate-500">
               Заявок пока нет.{' '}
-              <Link href="/catalog" className="text-blue-400 hover:text-blue-300">
+              <Link href="/catalog" className="text-blue-600 hover:text-blue-700">
                 Перейти в каталог
               </Link>
             </p>
@@ -100,34 +102,42 @@ export function ApplicationsClient() {
           applications.map((app) => (
             <div
               key={app.id}
-              className="space-y-3 rounded-xl border border-slate-800 bg-slate-900 p-5"
+              className="space-y-3 rounded-xl border border-slate-200 bg-white p-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <Link
                     href={`/deals/${app.project_id}`}
-                    className="text-base font-semibold text-white hover:text-slate-300"
+                    className="text-base font-semibold text-slate-900 hover:text-slate-700"
                   >
                     {app.project_name}
                   </Link>
-                  <p className="mt-0.5 text-xs text-slate-600">
+                  <p className="mt-0.5 text-xs text-slate-500">
                     {new Date(app.created_at).toLocaleDateString('ru-RU')}
                   </p>
                 </div>
-                <span className={STATUS_CLASSES[app.status]}>{STATUS_LABELS[app.status]}</span>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={`/applications/${app.id}`}
+                    className="text-xs text-slate-500 hover:text-slate-700 underline"
+                  >
+                    Подробнее
+                  </Link>
+                  <span className={STATUS_CLASSES[app.status]}>{STATUS_LABELS[app.status]}</span>
+                </div>
               </div>
               {app.amount !== null && (
-                <p className="text-sm text-slate-300">
+                <p className="text-sm text-slate-700">
                   <span className="text-slate-500">Сумма:</span>{' '}
                   {app.amount.toLocaleString('ru-RU')} ₽
                 </p>
               )}
               {app.message && (
-                <p className="line-clamp-3 text-sm text-slate-500">{app.message}</p>
+                <p className="line-clamp-3 text-sm text-slate-600">{app.message}</p>
               )}
               {app.status === 'rejected' && app.rejection_reason && (
-                <p className="text-sm text-slate-500">
-                  <span className="text-slate-400">Причина отклонения:</span>{' '}
+                <p className="text-sm text-slate-600">
+                  <span className="text-slate-500">Причина отклонения:</span>{' '}
                   {app.rejection_reason}
                 </p>
               )}
@@ -135,7 +145,7 @@ export function ApplicationsClient() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="px-0 text-red-400 hover:text-red-300"
+                  className="px-0 text-red-600 hover:text-red-700"
                   disabled={withdrawingId === app.id}
                   onClick={() => handleWithdraw(app.id)}
                 >

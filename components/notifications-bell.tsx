@@ -63,8 +63,8 @@ export function NotificationsBell() {
             <div className={`text-sm ${notification.is_read ? 'font-medium' : 'font-semibold'}`}>
               {notification.title}
             </div>
-            <div className="text-xs leading-5 text-gray-600">{notification.body}</div>
-            <div className="text-xs text-gray-400">
+            <div className="text-xs leading-5 text-slate-600">{notification.body}</div>
+            <div className="text-xs text-slate-400">
               {new Date(notification.created_at).toLocaleDateString('ru-RU')}
             </div>
           </div>
@@ -119,7 +119,7 @@ export function NotificationsBell() {
         <ScrollArea className="max-h-[400px] pr-1">
           <div className="space-y-2">
             {notifications.length === 0 ? (
-              <div className="py-6 text-center text-sm text-gray-500">Нет уведомлений</div>
+              <div className="py-6 text-center text-sm text-slate-500">Нет уведомлений</div>
             ) : (
               notifications.map(renderNotification)
             )}

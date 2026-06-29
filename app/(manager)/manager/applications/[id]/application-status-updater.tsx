@@ -45,7 +45,7 @@ export default function ApplicationStatusUpdater({ applicationId }: Props) {
           onChange={(e) => setRejectionReason(e.target.value)}
           placeholder="Укажите причину отклонения заявки..."
           rows={3}
-          className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+          className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-400"
         />
         <div className="flex gap-2">
           <Button

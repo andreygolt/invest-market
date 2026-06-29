@@ -41,7 +41,7 @@ export function RerunAnalysisButton({ projectId }: RerunAnalysisButtonProps) {
       <Button type="button" variant="outline" onClick={handleClick} disabled={isLoading}>
         {isLoading ? 'Запускаем...' : 'Перезапустить AI-анализ'}
       </Button>
-      {message && <span className="text-sm text-gray-600">{message}</span>}
+      {message && <span className="text-sm text-slate-600">{message}</span>}
       {error && <span className="text-sm text-red-600">{error}</span>}
     </div>
   );

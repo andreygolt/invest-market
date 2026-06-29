@@ -22,7 +22,7 @@ function MiniBar({ value, max }: { value: number; max: number }) {
   return (
     <div className="flex items-center gap-2">
       <span className="w-8 text-right tabular-nums">{value}</span>
-      <div className="h-2 w-24 rounded-full bg-gray-100">
+      <div className="h-2 w-24 rounded-full bg-slate-100">
         <div className="h-2 rounded-full bg-blue-400" style={{ width: `${pct}%` }} />
       </div>
     </div>
@@ -71,8 +71,8 @@ export default function AnalyticsClient() {
             onClick={() => setPeriod(p.value)}
             className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
               period === p.value
-                ? 'bg-gray-900 text-white'
-                : 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+                ? 'bg-slate-900 text-white'
+                : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
             {p.label}
@@ -80,7 +80,7 @@ export default function AnalyticsClient() {
         ))}
       </div>
 
-      {loading && <div className="py-12 text-center text-gray-400">Загрузка...</div>}
+      {loading && <div className="py-12 text-center text-slate-400">Загрузка...</div>}
 
       {error && <div className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-800">{error}</div>}
 
@@ -90,18 +90,18 @@ export default function AnalyticsClient() {
             {COLUMNS.map((col) => (
               <div key={col.key} className="rounded-lg border p-3 text-center">
                 <div className="text-2xl font-semibold tabular-nums">{data.totals[col.key]}</div>
-                <div className="mt-1 text-xs text-gray-500">{col.label}</div>
+                <div className="mt-1 text-xs text-slate-500">{col.label}</div>
               </div>
             ))}
           </div>
 
           <div className="overflow-x-auto rounded-lg border">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50">
                 <tr>
-                  <th className="px-4 py-3 text-left font-medium text-gray-600">Период</th>
+                  <th className="px-4 py-3 text-left font-medium text-slate-600">Период</th>
                   {COLUMNS.map((col) => (
-                    <th key={col.key} className="px-4 py-3 text-left font-medium text-gray-600">
+                    <th key={col.key} className="px-4 py-3 text-left font-medium text-slate-600">
                       {col.label}
                     </th>
                   ))}
@@ -109,7 +109,7 @@ export default function AnalyticsClient() {
               </thead>
               <tbody className="divide-y">
                 {data.buckets.map((bucket) => (
-                  <tr key={bucket.date_from} className="hover:bg-gray-50">
+                  <tr key={bucket.date_from} className="hover:bg-slate-50">
                     <td className="whitespace-nowrap px-4 py-2 font-medium">{bucket.label}</td>
                     {COLUMNS.map((col) => (
                       <td key={col.key} className="px-4 py-2">

@@ -7,7 +7,9 @@ export async function middleware(request: NextRequest) {
     pathname === '/' ||
     pathname === '/login' ||
     pathname === '/pending' ||
+    pathname.startsWith('/apply') ||
     pathname.startsWith('/invite/') ||
+    pathname.startsWith('/api/apply') ||
     pathname.startsWith('/api/invite/') ||
     pathname.startsWith('/api/auth/');
 

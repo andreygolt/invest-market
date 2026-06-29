@@ -48,7 +48,7 @@ function Section5({ value, onChange }: { value: Partial<QS5Answers>; onChange: (
       <div className="flex items-center gap-2">
         <input type="checkbox" id="fin_model" checked={value.financial_model_ready ?? false}
           onChange={e => onChange({ ...value, financial_model_ready: e.target.checked })}
-          className="h-4 w-4 rounded border-gray-300" />
+          className="h-4 w-4 rounded border-slate-300" />
         <label htmlFor="fin_model" className="text-sm">Финансовая модель готова</label>
       </div>
     </div>
@@ -66,7 +66,7 @@ function Section6({ value, onChange }: { value: Partial<QS6Answers>; onChange: (
 
   return (
     <div className="space-y-4">
-      <p className="text-xs text-gray-500 bg-gray-50 border rounded p-3">
+      <p className="text-xs text-slate-500 bg-slate-50 border rounded p-3">
         Платформа не принимает денежные средства и не является участником сделки. Все сделки оформляются напрямую между проектом и инвестором.
       </p>
       <div className="grid grid-cols-2 gap-4">
@@ -279,17 +279,17 @@ export default function Sections58Page() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><p className="text-gray-500">Загрузка...</p></div>;
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-slate-500">Загрузка...</p></div>;
   }
 
   if (done) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <main className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="w-full max-w-md p-8 bg-white rounded-lg shadow text-center">
           <div className="text-4xl mb-4">✓</div>
           <h1 className="text-2xl font-semibold mb-2">Анкета заполнена</h1>
-          <p className="text-gray-500 text-sm mb-4">Все 8 секций заполнены. Теперь загрузите документы.</p>
-          <a href="/project/documents" className="inline-block bg-black text-white px-6 py-2 rounded text-sm font-medium">
+          <p className="text-slate-500 text-sm mb-4">Все 8 секций заполнены. Теперь загрузите документы.</p>
+          <a href="/project/documents" className="inline-block bg-slate-900 text-white px-6 py-2 rounded text-sm font-medium">
             Загрузить документы
           </a>
         </div>
@@ -298,19 +298,19 @@ export default function Sections58Page() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
+    <main className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <h1 className="text-xl font-semibold">Анкета проекта — секции 5-8</h1>
-          <p className="text-sm text-gray-500 mt-1">Шаг {step + 1} из {TOTAL}</p>
+          <p className="text-sm text-slate-500 mt-1">Шаг {step + 1} из {TOTAL}</p>
         </div>
 
         {/* Progress bar */}
         <div className="flex gap-2 mb-8">
           {STEPS.map((label, i) => (
             <div key={i} className="flex-1">
-              <div className={`h-1 rounded-full mb-1 ${i <= step ? 'bg-black' : 'bg-gray-200'}`} />
-              <p className={`text-xs ${i === step ? 'font-medium text-black' : 'text-gray-400'}`}>{label}</p>
+              <div className={`h-1 rounded-full mb-1 ${i <= step ? 'bg-slate-900' : 'bg-slate-200'}`} />
+              <p className={`text-xs ${i === step ? 'font-medium text-slate-900' : 'text-slate-400'}`}>{label}</p>
             </div>
           ))}
         </div>
@@ -351,7 +351,7 @@ export default function Sections58Page() {
               Назад
             </button>
             <button onClick={saveAndNext} disabled={saving}
-              className="px-6 py-2 text-sm bg-black text-white rounded disabled:opacity-50">
+              className="px-6 py-2 text-sm bg-slate-900 text-white rounded disabled:opacity-50">
               {saving ? 'Сохраняем...' : step === TOTAL - 1 ? 'Завершить анкету' : 'Сохранить и продолжить'}
             </button>
           </div>

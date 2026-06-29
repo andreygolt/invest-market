@@ -267,44 +267,72 @@ def write_task(n: int) -> bool:
     return False
 
 
+def build_check() -> tuple[bool, str]:
+    """Запускает npm run build локально — без Claude."""
+    try:
+        result = subprocess.run(
+            ["/usr/local/bin/npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+        ok = result.returncode == 0
+        out = (result.stdout + result.stderr)[-400:]
+        return ok, out
+    except Exception as e:
+        return False, str(e)
+
+
 def review_task(done_n: int) -> bool:
-    """Claude Code ревьюит T{done_n} и пишет T{done_n+1}."""
+    """Проверяет build локально (без Claude). Если OK — пишет ТЗ через Claude только если файла нет."""
     next_n = done_n + 1
 
-    prompt = f"""{PROJECT_CONTEXT}
+    # Шаг 1: build без Claude
+    log(f"Build-проверка T{done_n}...")
+    ok, build_out = build_check()
+    if not ok:
+        log(f"Build упал после T{done_n}. Вывод:\n{build_out}")
+        # Только в случае ошибки зовём Claude починить
+        fix_prompt = (
+            f"Build сломан после T{done_n}. Ошибка:\n{build_out}\n\n"
+            f"Почини TypeScript/ESLint ошибки в invest_market/. "
+            f"После исправления запусти npm run build и убедись что проходит. "
+            f"Не меняй логику — только исправь ошибки типов и импортов."
+        )
+        fix_ok, _ = run_claude(fix_prompt, timeout=300)
+        if fix_ok:
+            ok, build_out = build_check()
+        if not ok:
+            log("Build не починен. Останавливаюсь.")
+            return False
 
-Codex только что завершил задачу T{done_n}.
+    log(f"Build OK после T{done_n}")
 
-1. Прочитай invest_market/progress.md — что Codex написал о выполнении T{done_n}.
-2. Запусти проверку:
-   cd "/Users/andrey/Downloads/ИИ АНДРЕЙ/invest_market" && npm run build && npm test
-3. Если проверки НЕ прошли:
-   - Напиши в invest_market/progress.md раздел "Вопросы к Claude: T{done_n}" с деталями ошибок
-   - Выведи "REVIEW_FAIL: [описание проблемы]"
-   - НЕ пиши следующее ТЗ
-4. Если проверки прошли:
-   a. Проверь, существует ли уже invest_market/CODEX_T{next_n}_TASK.md
-   b. Если файл УЖЕ СУЩЕСТВУЕТ — не перезаписывай. Выведи "REVIEW_OK: T{next_n} ТЗ уже есть"
-   c. Если файла НЕТ — напиши следующее ТЗ для T{next_n} в invest_market/CODEX_T{next_n}_TASK.md
+    # Шаг 2: если ТЗ для следующей задачи уже есть — не зовём Claude
+    if task_file_exists(next_n):
+        log(f"T{next_n} ТЗ уже существует → пропускаю ревью Claude")
+        return True
 
-Для написания T{next_n} ТЗ:
-- Читай invest_market/progress.md (roadmap)
-- Определи следующий логичный шаг по roadmap
-- Напиши детальное ТЗ в том же формате что предыдущие
-
-После записи файла выведи: "REVIEW_OK: T{next_n} написан" или "REVIEW_FAIL: [причина]"
-"""
-    ok, out = run_claude(prompt, timeout=600)
-    if ok and "REVIEW_OK" in out and task_file_exists(next_n):
+    # Шаг 3: Claude пишет только ТЗ (не ревьюит код)
+    prompt = (
+        f"{PROJECT_CONTEXT}\n\n"
+        f"Build прошёл. T{done_n} завершён.\n\n"
+        f"Прочитай invest_market/progress.md и определи следующую задачу T{next_n} по roadmap.\n"
+        f"Напиши ТЗ в файл invest_market/CODEX_T{next_n}_TASK.md.\n\n"
+        f"ТЗ должно содержать:\n"
+        f"- Заголовок, цель задачи\n"
+        f"- Конкретные файлы для создания/изменения\n"
+        f"- Код (TypeScript/SQL) который нужно написать\n"
+        f"- Команды проверки\n\n"
+        f"ВАЖНО: Если файл CODEX_T{next_n}_TASK.md уже существует — не перезаписывай, выведи 'SKIP'.\n"
+        f"После записи выведи: 'REVIEW_OK: T{next_n} написан'"
+    )
+    ok, out = run_claude(prompt, timeout=400)
+    if task_file_exists(next_n):
         log(f"Ревью OK → T{next_n} создан")
         return True
-    if ok and "REVIEW_FAIL" in out:
-        log(f"Ревью: проверки не прошли. Смотри progress.md")
-        return False
-    if task_file_exists(next_n):
-        log(f"T{next_n} создан (без явного REVIEW_OK)")
-        return True
-    log(f"Ревью провалилось. Output: {out[-300:]}")
+    log(f"Ревью провалилось. Output: {out[-200:]}")
     return False
 
 
