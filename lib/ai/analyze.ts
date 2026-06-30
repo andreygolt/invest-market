@@ -11,10 +11,10 @@ type DocumentExtractionRow = {
   extracted_text: string | null;
 };
 
-type ChatCompletionResponse = {
-  choices?: Array<{
-    message?: {
-      content?: string | null;
+type GeminiResponse = {
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{ text?: string }>;
     };
   }>;
 };
@@ -102,39 +102,34 @@ const SYSTEM_PROMPT = `Ты — AI-андеррайтер закрытой ин�
 Платформа НЕ принимает деньги — сделки оформляются вне платформы.`;
 
 async function createAnalysisCompletion(projectData: string): Promise<string> {
-  if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY is not set');
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o',
-      response_format: {
-        type: 'json_schema',
-        json_schema: {
-          name: 'ai_analysis',
-          strict: true,
-          schema: ANALYSIS_SCHEMA,
+  const prompt = `${SYSTEM_PROMPT}\n\nОтвечай ТОЛЬКО валидным JSON без markdown-обёртки.\n\n${projectData}`;
+
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          responseMimeType: 'application/json',
+          maxOutputTokens: 4096,
+          temperature: 0.2,
         },
-      },
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: projectData },
-      ],
-      max_tokens: 4096,
-    }),
-  });
+      }),
+    }
+  );
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`OpenAI request failed: ${response.status} ${errorText}`);
+    throw new Error(`Gemini request failed: ${response.status} ${errorText}`);
   }
 
-  const data = (await response.json()) as ChatCompletionResponse;
-  return data.choices?.[0]?.message?.content ?? '{}';
+  const data = (await response.json()) as GeminiResponse;
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
 }
 
 /**
