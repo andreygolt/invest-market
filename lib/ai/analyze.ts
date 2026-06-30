@@ -11,11 +11,9 @@ type DocumentExtractionRow = {
   extracted_text: string | null;
 };
 
-type GeminiResponse = {
-  candidates?: Array<{
-    content?: {
-      parts?: Array<{ text?: string }>;
-    };
+type GroqResponse = {
+  choices?: Array<{
+    message?: { content?: string | null };
   }>;
 };
 
@@ -102,34 +100,34 @@ const SYSTEM_PROMPT = `Ты — AI-андеррайтер закрытой ин�
 Платформа НЕ принимает деньги — сделки оформляются вне платформы.`;
 
 async function createAnalysisCompletion(projectData: string): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error('GROQ_API_KEY is not set');
 
-  const prompt = `${SYSTEM_PROMPT}\n\nОтвечай ТОЛЬКО валидным JSON без markdown-обёртки.\n\n${projectData}`;
-
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          responseMimeType: 'application/json',
-          maxOutputTokens: 4096,
-          temperature: 0.2,
-        },
-      }),
-    }
-  );
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT + '\n\nОтвечай ТОЛЬКО валидным JSON без markdown-обёртки.' },
+        { role: 'user', content: projectData },
+      ],
+      max_tokens: 4096,
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+    }),
+  });
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Gemini request failed: ${response.status} ${errorText}`);
+    throw new Error(`Groq request failed: ${response.status} ${errorText}`);
   }
 
-  const data = (await response.json()) as GeminiResponse;
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
+  const data = (await response.json()) as GroqResponse;
+  return data.choices?.[0]?.message?.content ?? '{}';
 }
 
 /**
