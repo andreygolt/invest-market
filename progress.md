@@ -1,3 +1,14 @@
+REVIEWED: T129
+REVIEWED: T128
+REVIEWED: T127
+REVIEWED: T126
+REVIEWED: T125
+- создан __tests__/t125.test.ts: 28 тестов для GET/POST /api/admin/invites, DELETE /api/admin/invites/[id], GET /api/admin/stats, GET /api/admin/search
+
+REVIEWED: T124
+REVIEWED: T123
+REVIEWED: T122
+REVIEWED: T121
 REVIEWED: T120
 - создан __tests__/t120.test.ts: 29 тестов для GET/POST /api/manager/applications/[id]/notes, DELETE /api/manager/applications/[id]/notes/[note_id], GET /api/manager/export/applications, escapeCSV
 

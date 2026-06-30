@@ -45,7 +45,18 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  const code = ((existing as ReferralCodeData | null) ?? null)?.code ?? (await insertReferralCode(supabase, user.id));
+  let code = ((existing as ReferralCodeData | null) ?? null)?.code ?? null;
+
+  if (!code) {
+    try {
+      code = await insertReferralCode(supabase, user.id);
+    } catch (creationError) {
+      return NextResponse.json(
+        { error: creationError instanceof Error ? creationError.message : 'Referral code creation failed' },
+        { status: 500 }
+      );
+    }
+  }
 
   return NextResponse.json({
     code,
